@@ -2,8 +2,9 @@ package lol
 
 import (
 	"net/http"
+	"time"
 
-	"github.com/dbhubble/sling"
+	"github.com/dghubble/sling"
 )
 
 const (
@@ -35,10 +36,10 @@ type ClientOption func(*Client) error
 
 // New returns interface to League of Legends API
 func NewClient(token string, options ...ClientOption) (*Client, error) {
-	cli = &Client{
-		token:  token,
-		region: defaultRegion,
-		slinger: sling.New().Base(baseURL)
+	cli := &Client{
+		Token:   token,
+		Region:  defaultRegion,
+		slinger: sling.New().Base(baseURL),
 	}
 
 	for _, option := range options {
@@ -52,14 +53,14 @@ func NewClient(token string, options ...ClientOption) (*Client, error) {
 
 func WithToken(token string) ClientOption {
 	return func(c *Client) error {
-		c.token = token
+		c.Token = token
 		return nil
 	}
 }
 
 func WithRegion(region string) ClientOption {
 	return func(c *Client) error {
-		c.region = region
+		c.Region = region
 		return nil
 	}
 }

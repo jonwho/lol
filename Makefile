@@ -6,4 +6,4 @@ GOTEST=$(GOCMD) test
 all: test
 
 test:
-	$(GOTEST) -v cover -count=1 -mod=vendor
+	$(GOTEST) -v -cover -count=1 -mod=vendor

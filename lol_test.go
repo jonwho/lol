@@ -14,6 +14,11 @@ func TestNewClient(t *testing.T) {
 	if expected != actual {
 		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
 	}
+	expected = "na"
+	actual = cli.Region
+	if expected != actual {
+		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
+	}
 
 	cli, err = NewClient("to_be_overwritten", WithToken("foobar"))
 	if err != nil {
@@ -21,6 +26,16 @@ func TestNewClient(t *testing.T) {
 	}
 	expected = "foobar"
 	actual = cli.Token
+	if expected != actual {
+		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
+	}
+
+	cli, err = NewClient("to_be_overwritten", WithRegion("mynewregion"))
+	if err != nil {
+		t.Error(err)
+	}
+	expected = "mynewregion"
+	actual = cli.Region
 	if expected != actual {
 		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
 	}
