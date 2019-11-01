@@ -37,6 +37,16 @@ type Client struct {
 	httpClient    *http.Client
 }
 
+type SummonerDTO struct {
+	ProfileIconID int    `json:"profileIconId"`
+	Name          string `json:"name"`
+	Puuid         string `json:"puuid"`
+	SummonerLevel int    `json:"summonerLevel"`
+	AccountID     string `json:"accountId"`
+	ID            string `json:"id"`
+	RevisionDate  int64  `json:"revisionDate"`
+}
+
 // ClientOption is a func that operates on *Client
 type ClientOption func(*Client) error
 
@@ -96,4 +106,14 @@ func (c *Client) ChampionRotations() (*ChampionInfo, *http.Response, error) {
 	}
 
 	return ci, resp, reqErr
+}
+
+func (c *Client) SummonerByName(name string) (*SummonerDTO, *http.Response, error) {
+	sd := new(SummonerDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/summoner/v4/summoners/by-name/"+name).Receive(sd, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return sd, resp, reqErr
 }

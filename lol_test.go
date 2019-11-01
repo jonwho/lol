@@ -84,6 +84,35 @@ func TestChampionRotations(t *testing.T) {
 	}
 }
 
+func TestSummonerByName(t *testing.T) {
+	rec, err := recorder.New("cassettes/summoner-v4/summoner-by-name")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	sd, resp, err := cli.SummonerByName("ilikeduck")
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := 70
+	actual := sd.SummonerLevel
+	if expected != actual {
+		t.Errorf("\nExpected: %d\nActual: %d\n", expected, actual)
+	}
+}
+
 func matchWithoutToken(req *http.Request, i cassette.Request) bool {
 	u := req.URL
 	q := u.Query()
