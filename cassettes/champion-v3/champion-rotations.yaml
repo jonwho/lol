@@ -1,0 +1,35 @@
+---
+version: 1
+interactions:
+- request:
+    body: "null"
+    form: {}
+    headers:
+      User-Agent:
+      - jonwho/lol
+    url: https://na1.api.riotgames.com/lol/platform/v3/champion-rotations
+    method: GET
+  response:
+    body: '{"freeChampionIds":[2,21,32,35,38,53,69,78,89,114,134,145,154,223,555],"freeChampionIdsForNewPlayers":[18,81,92,141,37,238,19,45,25,64],"maxNewPlayerLevel":10}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Fri, 1 Nov 2019  18:31:15 GMT
+      Vary:
+      - Accept-Encoding
+      X-App-Rate-Limit:
+      - 20:1,100:120
+      X-App-Rate-Limit-Count:
+      - 1:1,1:120
+      X-Method-Rate-Limit:
+      - 20000:10,1200000:600
+      X-Method-Rate-Limit-Count:
+      - 1:10,4:600
+      X-Riot-Edge-Trace-Id:
+      - 5004cd53-daf7-43e1-aed0-067c0382d8b4
+    status: 200 OK
+    code: 200
+    duration: ""
