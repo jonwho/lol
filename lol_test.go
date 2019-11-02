@@ -54,6 +54,65 @@ func TestNewClient(t *testing.T) {
 	}
 }
 
+func TestAllChampionMastery(t *testing.T) {
+	rec, err := recorder.New("cassettes/champion-mastery-v4/all-champion-mastery")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	dtosPointer, resp, err := cli.AllChampionMastery("1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo")
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	dtos := *dtosPointer
+	expected := false
+	actual := len(dtos) == 0
+	if expected != actual {
+		t.Errorf("\nExpected: %v\nActual: %v\n", expected, actual)
+	}
+}
+
+func TestChampionMastery(t *testing.T) {
+	rec, err := recorder.New("cassettes/champion-mastery-v4/champion-mastery")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	dto, resp, err := cli.ChampionMastery("1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo", "39")
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := 7
+	actual := dto.ChampionLevel
+	if expected != actual {
+		t.Errorf("\nExpected: %d\nActual: %d\n", expected, actual)
+	}
+}
+
 func TestChampionRotations(t *testing.T) {
 	rec, err := recorder.New("cassettes/champion-v3/champion-rotations")
 	if err != nil {
@@ -70,7 +129,6 @@ func TestChampionRotations(t *testing.T) {
 	}
 
 	championInfo, resp, err := cli.ChampionRotations()
-	log.Println(resp.Status)
 	if resp.StatusCode != 200 {
 		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
 	}
@@ -100,6 +158,35 @@ func TestSummonerByName(t *testing.T) {
 	}
 
 	sd, resp, err := cli.SummonerByName("ilikeduck")
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := 70
+	actual := sd.SummonerLevel
+	if expected != actual {
+		t.Errorf("\nExpected: %d\nActual: %d\n", expected, actual)
+	}
+}
+
+func TestSummonerByPUUID(t *testing.T) {
+	rec, err := recorder.New("cassettes/summoner-v4/summoner-by-puuid")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	sd, resp, err := cli.SummonerByPUUID("HldoCYMHNm27w37qJCfk5d20dB5uGma7oNuBVoZ01n3do7fMLW7ubao6SDeVAqTd9ieB5orqXvwHsQ")
 	if resp.StatusCode != 200 {
 		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
 	}

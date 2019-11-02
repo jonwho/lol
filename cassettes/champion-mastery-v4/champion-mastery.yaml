@@ -1,0 +1,35 @@
+---
+version: 1
+interactions:
+- request:
+    body: "null"
+    form: {}
+    headers:
+      User-Agent:
+      - jonwho/lol
+    url: https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo/by-champion/39
+    method: GET
+  response:
+    body: '{"championId":39,"championLevel":7,"championPoints":158523,"lastPlayTime":1572674870000,"championPointsSinceLastLevel":136923,"championPointsUntilNextLevel":0,"chestGranted":true,"tokensEarned":0,"summonerId":"1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo"}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Sat, 2 Nov 2019  06:13:11 GMT
+      Vary:
+      - Accept-Encoding
+      X-App-Rate-Limit:
+      - 20:1,100:120
+      X-App-Rate-Limit-Count:
+      - 1:1,1:120
+      X-Method-Rate-Limit:
+      - 20000:10,1200000:600
+      X-Method-Rate-Limit-Count:
+      - 1:10,1:600
+      X-Riot-Edge-Trace-Id:
+      - cab4614a-ac7b-47a6-90ce-73fff0bd5941
+    status: 200 OK
+    code: 200
+    duration: ""

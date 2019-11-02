@@ -30,6 +30,18 @@ type ChampionInfo struct {
 	MaxNewPlayerLevel            int   `json:"maxNewPlayerLevel"`
 }
 
+type ChampionMasteryDTO struct {
+	ChampionLevel                int    `json:"championLevel"`
+	ChestGranted                 bool   `json:"chestGranted"`
+	ChampionPoints               int    `json:"championPoints"`
+	ChampionPointsSinceLastLevel int    `json:"championPointsSinceLastLevel"`
+	ChampionPointsUntilNextLevel int    `json:"championPointsUntilNextLevel"`
+	SummonerID                   string `json:"summonerId"`
+	TokensEarned                 int    `json:"tokensEarned"`
+	ChampionID                   int    `json:"championId"`
+	LastPlayTime                 int64  `json:"lastPlayTime"`
+}
+
 // Client API struct to League of Legends
 type Client struct {
 	Token, Region string
@@ -91,8 +103,30 @@ func WithHTTPClient(httpClient *http.Client) ClientOption {
 	}
 }
 
-func (c *Client) AllChampionMastery(encryptedSummonerID string) interface{} {
-	return nil
+// AllChampionMastery GET /lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerID}
+func (c *Client) AllChampionMastery(encryptedSummonerID string) (*[]ChampionMasteryDTO, *http.Response, error) {
+	dtos := new([]ChampionMasteryDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/champion-mastery/v4/champion-masteries/by-summoner/"+encryptedSummonerID).Receive(dtos, reqErr)
+
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return dtos, resp, reqErr
+}
+
+// ChampionMastery GET /lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerID}/by-champion/{championID}
+func (c *Client) ChampionMastery(encryptedSummonerID, championID string) (*ChampionMasteryDTO, *http.Response, error) {
+	dto := new(ChampionMasteryDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/champion-mastery/v4/champion-masteries/by-summoner/"+encryptedSummonerID+"/by-champion/"+championID).Receive(dto, reqErr)
+
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return dto, resp, reqErr
 }
 
 // ChampionRotations GET /lol/platform/v3/champion-rotations
@@ -108,10 +142,22 @@ func (c *Client) ChampionRotations() (*ChampionInfo, *http.Response, error) {
 	return ci, resp, reqErr
 }
 
-func (c *Client) SummonerByName(name string) (*SummonerDTO, *http.Response, error) {
+// SummonerByName GET /lol/summoner/v4/summoners/by-name/{summonerName}
+func (c *Client) SummonerByName(summonerName string) (*SummonerDTO, *http.Response, error) {
 	sd := new(SummonerDTO)
 	var reqErr error
-	resp, err := c.sling.Get("lol/summoner/v4/summoners/by-name/"+name).Receive(sd, reqErr)
+	resp, err := c.sling.Get("lol/summoner/v4/summoners/by-name/"+summonerName).Receive(sd, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return sd, resp, reqErr
+}
+
+// SummonerByPUUID GET /lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}
+func (c *Client) SummonerByPUUID(encryptedPUUID string) (*SummonerDTO, *http.Response, error) {
+	sd := new(SummonerDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/summoner/v4/summoners/by-puuid/"+encryptedPUUID).Receive(sd, reqErr)
 	if err != nil {
 		return nil, resp, err
 	}

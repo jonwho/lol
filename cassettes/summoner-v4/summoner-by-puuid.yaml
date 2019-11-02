@@ -1,0 +1,35 @@
+---
+version: 1
+interactions:
+- request:
+    body: "null"
+    form: {}
+    headers:
+      User-Agent:
+      - jonwho/lol
+    url: https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/HldoCYMHNm27w37qJCfk5d20dB5uGma7oNuBVoZ01n3do7fMLW7ubao6SDeVAqTd9ieB5orqXvwHsQ
+    method: GET
+  response:
+    body: '{"id":"1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo","accountId":"L019WecOvXAAA7U2pplSIFOUjOvleGyX_9X_p2Al7J007A","puuid":"HldoCYMHNm27w37qJCfk5d20dB5uGma7oNuBVoZ01n3do7fMLW7ubao6SDeVAqTd9ieB5orqXvwHsQ","name":"IlikeDuck","profileIconId":2095,"revisionDate":1572392551000,"summonerLevel":70}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Sat, 2 Nov 2019  05:26:20 GMT
+      Vary:
+      - Accept-Encoding
+      X-App-Rate-Limit:
+      - 20:1,100:120
+      X-App-Rate-Limit-Count:
+      - 1:1,3:120
+      X-Method-Rate-Limit:
+      - 2000:60
+      X-Method-Rate-Limit-Count:
+      - 2:60
+      X-Riot-Edge-Trace-Id:
+      - 2e451350-de59-4299-9073-f77b4921b0de
+    status: 200 OK
+    code: 200
+    duration: ""
