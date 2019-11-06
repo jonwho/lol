@@ -1,6 +1,11 @@
 # lol
 API Client for League of Legends
 
+[![GoDoc](https://godoc.org/github.com/jonwho/lol?status.svg)](http://godoc.org/github.com/jonwho/lol)
+[![Go Report Card](https://goreportcard.com/badge/github.com/jonwho/lol)](https://goreportcard.com/report/github.com/jonwho/lol)
+![](https://github.com/jonwho/lol/workflows/tests/badge.svg)
+<a href='https://github.com/jpoles1/gopherbadger' target='_blank'>![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Go%20Coverage-84%25-brightgreen.svg?longCache=true&style=flat)</a>
+
 # SUPPORTED ENDPOINTS
 ## CHAMPION-MASTERY-V4
 - [x] /lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}
