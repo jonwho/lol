@@ -14,7 +14,7 @@ API Client for League of Legends
 ## CHAMPION-V3
 - [x] /lol/platform/v3/champion-rotations
 ## LEAGUE-EXP-V3
-- [ ] /lol/league-exp/v4/entries/{queue}/{tier}/{division}
+- [x] /lol/league-exp/v4/entries/{queue}/{tier}/{division}
 ## LEAGUE-V4
 - [ ] /lol/league/v4/challengerleagues/by-queue/{queue}
 - [ ] /lol/league/v4/entries/by-summoner/{encryptedSummonerId}

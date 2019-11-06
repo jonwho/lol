@@ -1,6 +1,7 @@
 package lol
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -49,6 +50,34 @@ type Client struct {
 	Token, Region string
 	sling         *sling.Sling
 	httpClient    *http.Client
+}
+
+type LeagueEntryDTO struct {
+	QueueType    string        `json:"queueType"`
+	SummonerName string        `json:"summonerName"`
+	HotStreak    bool          `json:"hotStreak"`
+	MiniSeries   MiniSeriesDTO `json:"miniSeries"`
+	Wins         int           `json:"wins"`
+	Veteran      bool          `json:"veteran"`
+	Losses       int           `json:"losses"`
+	Rank         string        `json:"rank"`
+	Tier         string        `json:"tier"`
+	Inactive     bool          `json:"inactive"`
+	FreshBlood   bool          `json:"freshBlood"`
+	LeagueID     string        `json:"leagueId"`
+	SummonerID   string        `json:"summonerId"`
+	LeaguePoints int           `json:"leaguePoints"`
+}
+
+type LeagueExpEntriesParams struct {
+	Page string `url:"page,omitempty"`
+}
+
+type MiniSeriesDTO struct {
+	Progress string `json:"progress"`
+	Losses   int    `json:"losses"`
+	Target   int    `json:"target"`
+	Wins     int    `json:"wins"`
 }
 
 type SummonerDTO struct {
@@ -163,6 +192,17 @@ func (c *Client) ChampionRotations() (*ChampionInfo, *http.Response, error) {
 	}
 
 	return ci, resp, reqErr
+}
+
+func (c *Client) LeagueExpEntries(queue, tier, division string, params *LeagueExpEntriesParams) ([]LeagueEntryDTO, *http.Response, error) {
+	dtos := new([]LeagueEntryDTO)
+	var reqErr error
+	endpoint := fmt.Sprintf("lol/league-exp/v4/entries/%s/%s/%s", queue, tier, division)
+	resp, err := c.sling.Get(endpoint).QueryStruct(params).Receive(dtos, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return *dtos, resp, reqErr
 }
 
 // SummonerByName GET /lol/summoner/v4/summoners/by-name/{summonerName}

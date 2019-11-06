@@ -171,6 +171,35 @@ func TestChampionRotations(t *testing.T) {
 	}
 }
 
+func TestLeagueExpEntries(t *testing.T) {
+	rec, err := recorder.New("cassettes/league-exp-v4/league-exp-entries")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	dtos, resp, err := cli.LeagueExpEntries("RANKED_SOLO_5x5", "CHALLENGER", "I", &LeagueExpEntriesParams{Page: "1"})
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := false
+	actual := len(dtos) == 0
+	if expected != actual {
+		t.Errorf("\nExpected: %v\nActual: %v\n", expected, actual)
+	}
+}
+
 func TestSummonerByName(t *testing.T) {
 	rec, err := recorder.New("cassettes/summoner-v4/summoner-by-name")
 	if err != nil {
