@@ -5,7 +5,7 @@ API Client for League of Legends
 ## CHAMPION-MASTERY-V4
 - [x] /lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}
 - [x] /lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerId}/by-champion/{championId}
-- [ ] /lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}
+- [x] /lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerId}
 ## CHAMPION-V3
 - [x] /lol/platform/v3/champion-rotations
 ## LEAGUE-EXP-V3

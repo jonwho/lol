@@ -1,7 +1,9 @@
 package lol
 
 import (
+	"io/ioutil"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/dghubble/sling"
@@ -127,6 +129,27 @@ func (c *Client) ChampionMastery(encryptedSummonerID, championID string) (*Champ
 	}
 
 	return dto, resp, reqErr
+}
+
+// MasteryScore GET /lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerID}
+func (c *Client) MasteryScore(encryptedSummonerID string) (int, *http.Response, error) {
+	req, err := c.sling.Get("lol/champion-mastery/v4/scores/by-summoner/" + encryptedSummonerID).Request()
+	if err != nil {
+		return 0, nil, err
+	}
+	resp, err := c.httpClient.Do(req)
+	if err != nil {
+		return 0, resp, err
+	}
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return 0, resp, err
+	}
+	score, err := strconv.Atoi(string(bodyBytes))
+	if err != nil {
+		return 0, resp, err
+	}
+	return score, resp, err
 }
 
 // ChampionRotations GET /lol/platform/v3/champion-rotations

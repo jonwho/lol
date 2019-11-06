@@ -1,0 +1,35 @@
+---
+version: 1
+interactions:
+- request:
+    body: "null"
+    form: {}
+    headers:
+      User-Agent:
+      - jonwho/lol
+    url: https://na1.api.riotgames.com/lol/champion-mastery/v4/scores/by-summoner/1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo
+    method: GET
+  response:
+    body: "99"
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 6 Nov 2019  05:36:03 GMT
+      Vary:
+      - Accept-Encoding
+      X-App-Rate-Limit:
+      - 20:1,100:120
+      X-App-Rate-Limit-Count:
+      - 1:1,2:120
+      X-Method-Rate-Limit:
+      - 20000:10,1200000:600
+      X-Method-Rate-Limit-Count:
+      - 1:10,2:600
+      X-Riot-Edge-Trace-Id:
+      - 5ec9e934-9dc5-41e3-b1df-0f59720eb408
+    status: 200 OK
+    code: 200
+    duration: ""

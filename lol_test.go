@@ -113,6 +113,35 @@ func TestChampionMastery(t *testing.T) {
 	}
 }
 
+func TestMasteryScore(t *testing.T) {
+	rec, err := recorder.New("cassettes/champion-mastery-v4/mastery-score")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	score, resp, err := cli.MasteryScore("1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo")
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := 99
+	actual := score
+	if expected != actual {
+		t.Errorf("\nExpected: %d\nActual: %d\n", expected, actual)
+	}
+}
+
 func TestChampionRotations(t *testing.T) {
 	rec, err := recorder.New("cassettes/champion-v3/champion-rotations")
 	if err != nil {
