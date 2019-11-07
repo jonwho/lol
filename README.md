@@ -28,7 +28,7 @@ API Client for League of Legends
 - [ ] /lol/match/v4/matches/by-tournament-code/{tournamentCode}/ids
 - [ ] /lol/match/v4/matches/{matchId}
 - [ ] /lol/match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}
-- [ ] /lol/match/v4/matchlists/by-account/{encryptedAccountId}
+- [x] /lol/match/v4/matchlists/by-account/{encryptedAccountId}
 - [ ] /lol/match/v4/timelines/by-match/{matchId}
 ## SPECTATOR-V4
 - [ ] /lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}

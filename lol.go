@@ -106,6 +106,34 @@ type LeagueListDTO struct {
 	Name     string          `json:"name"`
 }
 
+type MatchlistDTO struct {
+	Matches    []MatchReferenceDTO `json:"matches"`
+	TotalGames int                 `json:"totalGames"`
+	StartIndex int                 `json:"startIndex"`
+	EndIndex   int                 `json:"endIndex"`
+}
+
+type MatchlistsParams struct {
+	Champion   []int `url:"champion"`
+	Queue      []int `url:"queue"`
+	Season     []int `url:"season"`
+	EndTime    int   `url:"endTime"`
+	BeginTime  int   `url:"beginTime"`
+	EndIndex   int   `url:"endIndex"`
+	BeginIndex int   `url:"beginIndex"`
+}
+
+type MatchReferenceDTO struct {
+	Lane       string `json:"lane"`
+	GameID     int    `json:"gameId"`
+	Champion   int    `json:"champion"`
+	PlatformID string `json:"platformId"`
+	Season     int    `json:"season"`
+	Queue      int    `json:"queue"`
+	Role       string `json:"role"`
+	Timestamp  int    `json:"timestamp"`
+}
+
 type Message struct {
 	Severity     string        `json:"severity"`
 	Author       string        `json:"author"`
@@ -347,6 +375,17 @@ func (c *Client) Status() (*ShardStatus, *http.Response, error) {
 		return nil, resp, err
 	}
 	return shardStatus, resp, reqErr
+}
+
+// Matchlists GET /lol/match/v4/matchlists/by-account/{encryptedAccountID}
+func (c *Client) Matchlists(encryptedAccountID string, params *MatchlistsParams) (*MatchlistDTO, *http.Response, error) {
+	dto := new(MatchlistDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/match/v4/matchlists/by-account/"+encryptedAccountID).QueryStruct(params).Receive(dto, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return dto, resp, reqErr
 }
 
 // SummonerByName GET /lol/summoner/v4/summoners/by-name/{summonerName}

@@ -15,7 +15,9 @@ import (
 var (
 	testToken           = os.Getenv("RIOT_API_KEY")
 	httpClient          *http.Client
+	encryptedAccountID  = "L019WecOvXAAA7U2pplSIFOUjOvleGyX_9X_p2Al7J007A"
 	encryptedSummonerID = "1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo"
+	encryptedPUUID      = "HldoCYMHNm27w37qJCfk5d20dB5uGma7oNuBVoZ01n3do7fMLW7ubao6SDeVAqTd9ieB5orqXvwHsQ"
 	grandmasterLeagueID = "00d07caf-539b-346a-a4f8-fdb57ab31aa4"
 )
 
@@ -402,6 +404,35 @@ func TestStatus(t *testing.T) {
 	actual := status.Name
 	if expected != actual {
 		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
+	}
+}
+
+func TestMatchlists(t *testing.T) {
+	rec, err := recorder.New("cassettes/match-v4/matchlists")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	ml, resp, err := cli.Matchlists(encryptedAccountID, nil)
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := false
+	actual := len(ml.Matches) == 0
+	if expected != actual {
+		t.Errorf("\nExpected: %v\nActual: %v\n", expected, actual)
 	}
 }
 
