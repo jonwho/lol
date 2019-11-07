@@ -13,8 +13,10 @@ import (
 )
 
 var (
-	testToken  = os.Getenv("RIOT_API_KEY")
-	httpClient *http.Client
+	testToken           = os.Getenv("RIOT_API_KEY")
+	httpClient          *http.Client
+	encryptedSummonerID = "1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo"
+	grandmasterLeagueID = "00d07caf-539b-346a-a4f8-fdb57ab31aa4"
 )
 
 func TestNewClient(t *testing.T) {
@@ -69,7 +71,7 @@ func TestAllChampionMastery(t *testing.T) {
 		t.Error(err)
 	}
 
-	dtosPointer, resp, err := cli.AllChampionMastery("1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo")
+	dtosPointer, resp, err := cli.AllChampionMastery(encryptedSummonerID)
 	if resp.StatusCode != 200 {
 		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
 	}
@@ -99,7 +101,7 @@ func TestChampionMastery(t *testing.T) {
 		t.Error(err)
 	}
 
-	dto, resp, err := cli.ChampionMastery("1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo", "39")
+	dto, resp, err := cli.ChampionMastery(encryptedSummonerID, "39")
 	if resp.StatusCode != 200 {
 		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
 	}
@@ -128,7 +130,7 @@ func TestMasteryScore(t *testing.T) {
 		t.Error(err)
 	}
 
-	score, resp, err := cli.MasteryScore("1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo")
+	score, resp, err := cli.MasteryScore(encryptedSummonerID)
 	if resp.StatusCode != 200 {
 		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
 	}
@@ -197,6 +199,180 @@ func TestLeagueExpEntries(t *testing.T) {
 	actual := len(dtos) == 0
 	if expected != actual {
 		t.Errorf("\nExpected: %v\nActual: %v\n", expected, actual)
+	}
+}
+
+func TestChallengerLeagues(t *testing.T) {
+	rec, err := recorder.New("cassettes/league-v4/challenger-leagues")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	dto, resp, err := cli.ChallengerLeagues("RANKED_SOLO_5x5")
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := "Syndra's Masterminds"
+	actual := dto.Name
+	if expected != actual {
+		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
+	}
+}
+
+func TestEntriesBySummoner(t *testing.T) {
+	rec, err := recorder.New("cassettes/league-v4/entries-by-summoner")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	dtos, resp, err := cli.EntriesBySummoner(encryptedSummonerID)
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := false
+	actual := len(dtos) == 0
+	if expected != actual {
+		t.Errorf("\nExpected: %v\nActual: %v\n", expected, actual)
+	}
+}
+
+func TestEntries(t *testing.T) {
+	rec, err := recorder.New("cassettes/league-v4/entries")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	dtos, resp, err := cli.Entries("RANKED_SOLO_5x5", "DIAMOND", "I", &EntriesParams{Page: "1"})
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := false
+	actual := len(dtos) == 0
+	if expected != actual {
+		t.Errorf("\nExpected: %v\nActual: %v\n", expected, actual)
+	}
+}
+
+func TestGrandmasterLeagues(t *testing.T) {
+	rec, err := recorder.New("cassettes/league-v4/grandmaster-leagues")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	dto, resp, err := cli.GrandmasterLeagues("RANKED_SOLO_5x5")
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := "Hecarim's Duelists"
+	actual := dto.Name
+	if expected != actual {
+		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
+	}
+}
+
+func TestLeagues(t *testing.T) {
+	rec, err := recorder.New("cassettes/league-v4/leagues")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	dto, resp, err := cli.Leagues(grandmasterLeagueID)
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := "Hecarim's Duelists"
+	actual := dto.Name
+	if expected != actual {
+		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
+	}
+}
+
+func TestMasterLeagues(t *testing.T) {
+	rec, err := recorder.New("cassettes/league-v4/master-leagues")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	dto, resp, err := cli.MasterLeagues("RANKED_SOLO_5x5")
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := "Jarvan IV's Elementalists"
+	actual := dto.Name
+	if expected != actual {
+		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
 	}
 }
 

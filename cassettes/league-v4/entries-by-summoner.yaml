@@ -1,0 +1,35 @@
+---
+version: 1
+interactions:
+- request:
+    body: "null"
+    form: {}
+    headers:
+      User-Agent:
+      - jonwho/lol
+    url: https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo
+    method: GET
+  response:
+    body: '[{"leagueId":"12e55f20-2672-11e9-ba46-c81f66dbb56c","queueType":"RANKED_FLEX_SR","tier":"SILVER","rank":"II","summonerId":"1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo","summonerName":"IlikeDuck","leaguePoints":47,"wins":13,"losses":14,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"leagueId":"08eb5740-7b72-11e9-8a0e-c81f66cf135e","queueType":"RANKED_SOLO_5x5","tier":"GOLD","rank":"IV","summonerId":"1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo","summonerName":"IlikeDuck","leaguePoints":75,"wins":119,"losses":130,"veteran":true,"inactive":false,"freshBlood":false,"hotStreak":false}]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 7 Nov 2019  08:48:54 GMT
+      Vary:
+      - Accept-Encoding
+      X-App-Rate-Limit:
+      - 20:1,100:120
+      X-App-Rate-Limit-Count:
+      - 1:1,1:120
+      X-Method-Rate-Limit:
+      - 270:60
+      X-Method-Rate-Limit-Count:
+      - 1:60
+      X-Riot-Edge-Trace-Id:
+      - 7a14134a-cba8-4773-861e-7e56dd2d6bea
+    status: 200 OK
+    code: 200
+    duration: ""

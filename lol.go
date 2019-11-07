@@ -52,6 +52,10 @@ type Client struct {
 	httpClient    *http.Client
 }
 
+type EntriesParams struct {
+	Page string `url:"page,omitempty"`
+}
+
 type LeagueEntryDTO struct {
 	QueueType    string        `json:"queueType"`
 	SummonerName string        `json:"summonerName"`
@@ -71,6 +75,28 @@ type LeagueEntryDTO struct {
 
 type LeagueExpEntriesParams struct {
 	Page string `url:"page,omitempty"`
+}
+
+type LeagueItemDTO struct {
+	SummonerName string        `json:"summonerName"`
+	HotStreak    bool          `json:"hotStreak"`
+	MiniSeries   MiniSeriesDTO `json:"miniSeries"`
+	Wins         int           `json:"wins"`
+	Veteran      bool          `json:"veteran"`
+	Losses       int           `json:"losses"`
+	FreshBlood   bool          `json:"freshBlood"`
+	Inactive     bool          `json:"inactive"`
+	Rank         string        `json:"rank"`
+	SummonerID   string        `json:"summonerId"`
+	LeaguePoints int           `json:"leaguePoints"`
+}
+
+type LeagueListDTO struct {
+	LeagueID string          `json:"leagueId"`
+	Tier     string          `json:"tier"`
+	Entries  []LeagueItemDTO `json:"entries"`
+	Queue    string          `json:"queue"`
+	Name     string          `json:"name"`
 }
 
 type MiniSeriesDTO struct {
@@ -194,6 +220,7 @@ func (c *Client) ChampionRotations() (*ChampionInfo, *http.Response, error) {
 	return ci, resp, reqErr
 }
 
+// LeagueExpEntries GET /lol/league-exp/v4/entries/{queue}/{tier}/{division}
 func (c *Client) LeagueExpEntries(queue, tier, division string, params *LeagueExpEntriesParams) ([]LeagueEntryDTO, *http.Response, error) {
 	dtos := new([]LeagueEntryDTO)
 	var reqErr error
@@ -203,6 +230,73 @@ func (c *Client) LeagueExpEntries(queue, tier, division string, params *LeagueEx
 		return nil, resp, err
 	}
 	return *dtos, resp, reqErr
+}
+
+// ChallengerLeagues GET /lol/league/v4/challengerleagues/by-queue/{queue}
+func (c *Client) ChallengerLeagues(queue string) (*LeagueListDTO, *http.Response, error) {
+	dto := new(LeagueListDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/league/v4/challengerleagues/by-queue/"+queue).Receive(dto, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return dto, resp, reqErr
+}
+
+// EntriesBySummoner GET /lol/league/v4/entries/by-summoner/{encryptedSummonerId}
+func (c *Client) EntriesBySummoner(encryptedSummonerID string) ([]LeagueEntryDTO, *http.Response, error) {
+	dtos := new([]LeagueEntryDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/league/v4/entries/by-summoner/"+encryptedSummonerID).Receive(dtos, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return *dtos, resp, reqErr
+}
+
+// Entries GET /lol/league/v4/entries/{queue}/{tier}/{division}
+func (c *Client) Entries(queue, tier, division string, params *EntriesParams) ([]LeagueEntryDTO, *http.Response, error) {
+	dtos := new([]LeagueEntryDTO)
+	var reqErr error
+	endpoint := fmt.Sprintf("lol/league/v4/entries/%s/%s/%s", queue, tier, division)
+	resp, err := c.sling.Get(endpoint).Receive(dtos, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return *dtos, resp, reqErr
+}
+
+// GrandmasterLeagues GET /lol/league/v4/grandmasterleagues/by-queue/{queue}
+func (c *Client) GrandmasterLeagues(queue string) (*LeagueListDTO, *http.Response, error) {
+	dto := new(LeagueListDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/league/v4/grandmasterleagues/by-queue/"+queue).Receive(dto, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return dto, resp, reqErr
+}
+
+// Leagues GET /lol/league/v4/leagues/{leagueId}
+func (c *Client) Leagues(leagueID string) (*LeagueListDTO, *http.Response, error) {
+	dto := new(LeagueListDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/league/v4/leagues/"+leagueID).Receive(dto, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return dto, resp, reqErr
+}
+
+// MasterLeagues GET /lol/league/v4/masterleagues/by-queue/{queue}
+func (c *Client) MasterLeagues(queue string) (*LeagueListDTO, *http.Response, error) {
+	dto := new(LeagueListDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/league/v4/masterleagues/by-queue/"+queue).Receive(dto, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return dto, resp, reqErr
 }
 
 // SummonerByName GET /lol/summoner/v4/summoners/by-name/{summonerName}

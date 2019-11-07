@@ -16,12 +16,12 @@ API Client for League of Legends
 ## LEAGUE-EXP-V3
 - [x] /lol/league-exp/v4/entries/{queue}/{tier}/{division}
 ## LEAGUE-V4
-- [ ] /lol/league/v4/challengerleagues/by-queue/{queue}
-- [ ] /lol/league/v4/entries/by-summoner/{encryptedSummonerId}
-- [ ] /lol/league/v4/entries/{queue}/{tier}/{division}
-- [ ] /lol/league/v4/grandmasterleagues/by-queue/{queue}
-- [ ] /lol/league/v4/leagues/{leagueId}
-- [ ] /lol/league/v4/masterleagues/by-queue/{queue}
+- [x] /lol/league/v4/challengerleagues/by-queue/{queue}
+- [x] /lol/league/v4/entries/by-summoner/{encryptedSummonerId}
+- [x] /lol/league/v4/entries/{queue}/{tier}/{division}
+- [x] /lol/league/v4/grandmasterleagues/by-queue/{queue}
+- [x] /lol/league/v4/leagues/{leagueId}
+- [x] /lol/league/v4/masterleagues/by-queue/{queue}
 ## LOL-STATUS-V3
 - [ ] /lol/status/v3/shard-data
 ## MATCH-V4
