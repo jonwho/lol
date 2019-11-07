@@ -1,0 +1,66 @@
+---
+version: 1
+interactions:
+- request:
+    body: "null"
+    form: {}
+    headers:
+      User-Agent:
+      - jonwho/lol
+    url: https://na1.api.riotgames.com/lol/status/v3/shard-data
+    method: GET
+  response:
+    body: '{"name":"North America","slug":"na","locales":["en_US"],"hostname":"prod.na1.lol.riotgames.com","region_tag":"na1","services":[{"name":"Game","slug":"game","status":"online","incidents":[]},{"name":"Store","slug":"store","status":"online","incidents":[{"id":13913,"active":true,"created_at":"2019-11-05T19:08:03.917Z","updates":[{"id":"5dc1c893f4322c782a255051","author":"","heading":"End
+      of Season Rewards","content":"We have disabled transfers while we prepare for
+      the end of the TFT ranked season.","severity":"info","created_at":"2019-11-05T19:08:03.917Z","updated_at":"2019-11-05T19:08:03.917Z","translations":[]}]}]},{"name":"Website","slug":"website","status":"online","incidents":[]},{"name":"Client","slug":"client","status":"online","incidents":[]}]}'
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - "3000"
+      Age:
+      - "2"
+      Cache-Control:
+      - public, max-age=2
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 07 Nov 2019 09:27:37 GMT
+      Etag:
+      - '"1bcfa1d8c1e7be76c5d428d3263d5f6e"'
+      Last-Modified:
+      - Thu, 07 Nov 2019 01:57:43 GMT
+      Strict-Transport-Security:
+      - max-age=900
+      Via:
+      - 1.1 varnish
+      - 1.1 varnish
+      X-Amz-Id-2:
+      - 7pSy/QrKXdct1a3iYj9UMYGMJto/ZTw7zS38G+mbNhx6qV4p2HO78TsRQ7+22mV4oevNLUsSVU4=
+      X-Amz-Request-Id:
+      - 38C6672CCCE1BA3A
+      X-Cache:
+      - HIT, HIT
+      X-Cache-Hits:
+      - 3, 1
+      X-Method-Rate-Limit:
+      - 20000:10,1200000:600
+      X-Method-Rate-Limit-Count:
+      - 1:10,1:600
+      X-Riot-Edge-Trace-Id:
+      - fba7953d-42d8-4ac3-8493-b685d0be6700
+      X-Riotgames-Cdn:
+      - Fastly
+      X-Served-By:
+      - cache-iad2121-IAD, cache-pao17436-PAO
+      X-Timer:
+      - S1573118858.686186,VS0,VE0
+    status: 200 OK
+    code: 200
+    duration: ""

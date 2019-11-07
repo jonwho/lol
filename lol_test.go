@@ -376,6 +376,35 @@ func TestMasterLeagues(t *testing.T) {
 	}
 }
 
+func TestStatus(t *testing.T) {
+	rec, err := recorder.New("cassettes/lol-status-v3/status")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	status, resp, err := cli.Status()
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := "North America"
+	actual := status.Name
+	if expected != actual {
+		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
+	}
+}
+
 func TestSummonerByName(t *testing.T) {
 	rec, err := recorder.New("cassettes/summoner-v4/summoner-by-name")
 	if err != nil {

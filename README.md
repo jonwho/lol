@@ -23,7 +23,7 @@ API Client for League of Legends
 - [x] /lol/league/v4/leagues/{leagueId}
 - [x] /lol/league/v4/masterleagues/by-queue/{queue}
 ## LOL-STATUS-V3
-- [ ] /lol/status/v3/shard-data
+- [x] /lol/status/v3/shard-data
 ## MATCH-V4
 - [ ] /lol/match/v4/matches/by-tournament-code/{tournamentCode}/ids
 - [ ] /lol/match/v4/matches/{matchId}

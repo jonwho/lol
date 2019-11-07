@@ -56,6 +56,13 @@ type EntriesParams struct {
 	Page string `url:"page,omitempty"`
 }
 
+type Incident struct {
+	Active    bool      `json:"active"`
+	CreatedAt string    `json:"created_at"`
+	ID        int       `json:"id"`
+	Updates   []Message `json:"updates"`
+}
+
 type LeagueEntryDTO struct {
 	QueueType    string        `json:"queueType"`
 	SummonerName string        `json:"summonerName"`
@@ -99,11 +106,37 @@ type LeagueListDTO struct {
 	Name     string          `json:"name"`
 }
 
+type Message struct {
+	Severity     string        `json:"severity"`
+	Author       string        `json:"author"`
+	CreatedAt    string        `json:"created_at"`
+	Translations []Translation `json:"translations"`
+	UpdatedAt    string        `json:"updated_at"`
+	Content      string        `json:"content"`
+	ID           string        `json:"id"`
+}
+
 type MiniSeriesDTO struct {
 	Progress string `json:"progress"`
 	Losses   int    `json:"losses"`
 	Target   int    `json:"target"`
 	Wins     int    `json:"wins"`
+}
+
+type Service struct {
+	Status    string     `json:"status"`
+	Incidents []Incident `json:"incidents"`
+	Name      string     `json:"name"`
+	Slug      string     `json:"slug"`
+}
+
+type ShardStatus struct {
+	Name      string    `json:"name"`
+	RegionTag string    `json:"region_tag"`
+	Hostname  string    `json:"hostname"`
+	Services  []Service `json:"services"`
+	Slug      string    `json:"slug"`
+	Locales   []string  `json:"locales"`
 }
 
 type SummonerDTO struct {
@@ -114,6 +147,12 @@ type SummonerDTO struct {
 	AccountID     string `json:"accountId"`
 	ID            string `json:"id"`
 	RevisionDate  int64  `json:"revisionDate"`
+}
+
+type Translation struct {
+	Locale    string `json:"locale"`
+	Content   string `json:"content"`
+	UpdatedAt string `json:"updated_at"`
 }
 
 // ClientOption is a func that operates on *Client
@@ -297,6 +336,17 @@ func (c *Client) MasterLeagues(queue string) (*LeagueListDTO, *http.Response, er
 		return nil, resp, err
 	}
 	return dto, resp, reqErr
+}
+
+// Status GET /lol/status/v3/shard-data
+func (c *Client) Status() (*ShardStatus, *http.Response, error) {
+	shardStatus := new(ShardStatus)
+	var reqErr error
+	resp, err := c.sling.Get("lol/status/v3/shard-data").Receive(shardStatus, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return shardStatus, resp, reqErr
 }
 
 // SummonerByName GET /lol/summoner/v4/summoners/by-name/{summonerName}
