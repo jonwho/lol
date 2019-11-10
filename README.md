@@ -25,11 +25,11 @@ API Client for League of Legends
 ## LOL-STATUS-V3
 - [x] /lol/status/v3/shard-data
 ## MATCH-V4
-- [ ] /lol/match/v4/matches/by-tournament-code/{tournamentCode}/ids
-- [ ] /lol/match/v4/matches/{matchId}
-- [ ] /lol/match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}
+- [x] /lol/match/v4/matches/{matchId}
 - [x] /lol/match/v4/matchlists/by-account/{encryptedAccountId}
 - [ ] /lol/match/v4/timelines/by-match/{matchId}
+- [ ] /lol/match/v4/matches/by-tournament-code/{tournamentCode}/ids
+- [ ] /lol/match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}
 ## SPECTATOR-V4
 - [ ] /lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}
 - [ ] /lol/spectator/v4/featured-games

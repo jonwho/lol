@@ -19,6 +19,7 @@ var (
 	encryptedSummonerID = "1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo"
 	encryptedPUUID      = "HldoCYMHNm27w37qJCfk5d20dB5uGma7oNuBVoZ01n3do7fMLW7ubao6SDeVAqTd9ieB5orqXvwHsQ"
 	grandmasterLeagueID = "00d07caf-539b-346a-a4f8-fdb57ab31aa4"
+	matchID             = "3198831326"
 )
 
 func TestNewClient(t *testing.T) {
@@ -404,6 +405,35 @@ func TestStatus(t *testing.T) {
 	actual := status.Name
 	if expected != actual {
 		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
+	}
+}
+
+func TestMatches(t *testing.T) {
+	rec, err := recorder.New("cassettes/match-v4/matches")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	dto, resp, err := cli.Matches(matchID)
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := 13
+	actual := dto.SeasonID
+	if expected != actual {
+		t.Errorf("\nExpected: %d\nActual: %d\n", expected, actual)
 	}
 }
 
