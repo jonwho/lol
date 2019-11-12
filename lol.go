@@ -298,6 +298,61 @@ type MatchDTO struct {
 	GameCreation          int64                    `json:"gameCreation"`
 }
 
+type MatchTimelineDTO struct {
+	Frames        []MatchFrameDTO `json:"frames"`
+	FrameInterval int
+}
+
+type MatchFrameDTO struct {
+	Timestamp         int                           `json:"timestamp"`
+	ParticipantFrames map[string]MatchParicipantDTO `json:"participantFrames"`
+	Events            []MatchEventDTO               `json:"events"`
+}
+
+type MatchParicipantDTO struct {
+	TotalGold           int              `json:"totalGold"`
+	TeamScore           int              `json:"teamScore"`
+	ParticipantID       int              `json:"participantId"`
+	Level               int              `json:"level"`
+	CurrentGold         int              `json:"currentGold"`
+	MinionsKilled       int              `json:"minionsKilled"`
+	DominionScore       int              `json:"dominionScore"`
+	Position            MatchPositionDTO `json:"position"`
+	XP                  int              `json:"xp"`
+	JungleMinionsKilled int              `json:"jungleMinionsKilled"`
+}
+
+type MatchPositionDTO struct {
+	Y int `json:"y"`
+	X int `json:"x"`
+}
+
+type MatchEventDTO struct {
+	EventType               string           `json:"eventType"`
+	TowerType               string           `json:"towerType"`
+	TeamID                  int              `json:"teamId"`
+	AscendedType            string           `json:"ascendedType"`
+	KillerID                int              `json:"killerId"`
+	LevelUpType             string           `json:"levelUpType"`
+	PointCaptured           string           `json:"pointCaptured"`
+	AssistingParticipantIDs []int            `json:"assistingParticipantIDs"`
+	WardType                string           `json:"wardType"`
+	MonsterType             string           `json:"monsterType"`
+	Type                    string           `json:"type"`
+	SkillSlot               int              `json:"skillSlot"`
+	VictimID                int              `json:"victimId"`
+	Timestamp               int64            `json:"timestamp"`
+	AfterID                 int              `json:"afterId"`
+	MonsterSubType          string           `json:"monsterSubType"`
+	LaneType                string           `json:"laneType"`
+	ItemID                  int              `json:"itemId"`
+	ParticipantID           int              `json:"participantId"`
+	BuildingType            string           `json:"buildingType"`
+	CreatorID               int              `json:"creatorId"`
+	Position                MatchPositionDTO `json:"position"`
+	BeforeID                int              `json:"beforeId"`
+}
+
 type MatchlistDTO struct {
 	Matches    []MatchReferenceDTO `json:"matches"`
 	TotalGames int                 `json:"totalGames"`
@@ -577,6 +632,17 @@ func (c *Client) Matches(matchID string) (*MatchDTO, *http.Response, error) {
 	dto := new(MatchDTO)
 	var reqErr error
 	resp, err := c.sling.Get("lol/match/v4/matches/"+matchID).Receive(dto, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return dto, resp, reqErr
+}
+
+// Timelines GET /lol/match/v4/timelines/by-match/{matchID}
+func (c *Client) Timelines(matchID string) (*MatchTimelineDTO, *http.Response, error) {
+	dto := new(MatchTimelineDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/match/v4/timelines/by-match/"+matchID).Receive(dto, reqErr)
 	if err != nil {
 		return nil, resp, err
 	}

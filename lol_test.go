@@ -466,6 +466,35 @@ func TestMatchlists(t *testing.T) {
 	}
 }
 
+func TestTimelines(t *testing.T) {
+	rec, err := recorder.New("cassettes/match-v4/timelines")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	tl, resp, err := cli.Timelines(matchID)
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := false
+	actual := len(tl.Frames) == 0
+	if expected != actual {
+		t.Errorf("\nExpected: %v\nActual: %v\n", expected, actual)
+	}
+}
+
 func TestSummonerByName(t *testing.T) {
 	rec, err := recorder.New("cassettes/summoner-v4/summoner-by-name")
 	if err != nil {
