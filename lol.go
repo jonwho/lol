@@ -52,6 +52,54 @@ type Client struct {
 	httpClient    *http.Client
 }
 
+type CurrentGameInfo struct {
+	GameID            int64                    `json:"gameId"`
+	GameStartTime     int64                    `json:"gameStartTime"`
+	PlatformID        string                   `json:"platformId"`
+	GameMode          string                   `json:"gameMode"`
+	MapID             int64                    `json:"mapId"`
+	GameType          string                   `json:"gameType"`
+	BannedChampions   []BannedChampion         `json:"bannedChampions"`
+	Observers         Observer                 `json:"observers"`
+	Participants      []CurrentGameParticipant `json:"participants"`
+	GameLength        int64                    `json:"gameLength"`
+	GameQueueConfigID int64                    `json:"gameQueueConfigId"`
+}
+
+type BannedChampion struct {
+	PickTurn   int   `json:"pickTurn"`
+	ChampionID int64 `json:"championId"`
+	TeamID     int64 `json:"teamId"`
+}
+
+type Observer struct {
+	EncryptionKey string `json:"encryptionKey"`
+}
+
+type CurrentGameParticipant struct {
+	ProfileIconID            int64                     `json:"profileIconId"`
+	ChampionID               int64                     `json:"championId"`
+	SummonerName             string                    `json:"summonerName"`
+	GameCustomizationObjects []GameCustomizationObject `json:"gameCustomizationObjects"`
+	Bot                      bool                      `json:"bot"`
+	Perks                    Perks                     `json:"perks"`
+	Spell2ID                 int64                     `json:"spell2Id"`
+	Spell1ID                 int64                     `json:"spell1Id"`
+	TeamID                   int64                     `json:"teamId"`
+	SummonerID               string                    `json:"summonerId"`
+}
+
+type GameCustomizationObject struct {
+	Category string `json:"category"`
+	Content  string `json:"content"`
+}
+
+type Perks struct {
+	PerkStyle    int64   `json:"perkStyle"`
+	PerkIDs      []int64 `json:"perkIds"`
+	PerkSubStyle int64   `json:"perkSubStyle"`
+}
+
 type EntriesParams struct {
 	Page string `url:"page,omitempty"`
 }
@@ -638,6 +686,17 @@ func (c *Client) Matches(matchID string) (*MatchDTO, *http.Response, error) {
 	return dto, resp, reqErr
 }
 
+// Matchlists GET /lol/match/v4/matchlists/by-account/{encryptedAccountID}
+func (c *Client) Matchlists(encryptedAccountID string, params *MatchlistsParams) (*MatchlistDTO, *http.Response, error) {
+	dto := new(MatchlistDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/match/v4/matchlists/by-account/"+encryptedAccountID).QueryStruct(params).Receive(dto, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return dto, resp, reqErr
+}
+
 // Timelines GET /lol/match/v4/timelines/by-match/{matchID}
 func (c *Client) Timelines(matchID string) (*MatchTimelineDTO, *http.Response, error) {
 	dto := new(MatchTimelineDTO)
@@ -649,15 +708,15 @@ func (c *Client) Timelines(matchID string) (*MatchTimelineDTO, *http.Response, e
 	return dto, resp, reqErr
 }
 
-// Matchlists GET /lol/match/v4/matchlists/by-account/{encryptedAccountID}
-func (c *Client) Matchlists(encryptedAccountID string, params *MatchlistsParams) (*MatchlistDTO, *http.Response, error) {
-	dto := new(MatchlistDTO)
+// ActiveGames GET /lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}
+func (c *Client) ActiveGames(encryptedSummonerID string) (*CurrentGameInfo, *http.Response, error) {
+	info := new(CurrentGameInfo)
 	var reqErr error
-	resp, err := c.sling.Get("lol/match/v4/matchlists/by-account/"+encryptedAccountID).QueryStruct(params).Receive(dto, reqErr)
+	resp, err := c.sling.Get("lol/spectator/v4/active-games/by-summoner/"+encryptedSummonerID).Receive(info, reqErr)
 	if err != nil {
 		return nil, resp, err
 	}
-	return dto, resp, reqErr
+	return info, resp, reqErr
 }
 
 // SummonerByName GET /lol/summoner/v4/summoners/by-name/{summonerName}

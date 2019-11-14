@@ -495,6 +495,37 @@ func TestTimelines(t *testing.T) {
 	}
 }
 
+func TestActiveGames(t *testing.T) {
+	rec, err := recorder.New("cassettes/spectator-v4/active-games")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	ag, resp, err := cli.ActiveGames(encryptedSummonerID)
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+		return
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	var expected int64
+	expected = 3206061846
+	actual := ag.GameID
+	if expected != actual {
+		t.Errorf("\nExpected: %d\nActual: %d\n", expected, actual)
+	}
+}
+
 func TestSummonerByName(t *testing.T) {
 	rec, err := recorder.New("cassettes/summoner-v4/summoner-by-name")
 	if err != nil {
