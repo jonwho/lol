@@ -15,6 +15,7 @@ import (
 var (
 	testToken           = os.Getenv("RIOT_API_KEY")
 	httpClient          *http.Client
+	summonerName        = "ilikeduck"
 	encryptedAccountID  = "L019WecOvXAAA7U2pplSIFOUjOvleGyX_9X_p2Al7J007A"
 	encryptedSummonerID = "1NgBFb-1WXj-ku_Fym3BQF1FxXUz9xrvpuIPVnSdvo6KjHo"
 	encryptedPUUID      = "HldoCYMHNm27w37qJCfk5d20dB5uGma7oNuBVoZ01n3do7fMLW7ubao6SDeVAqTd9ieB5orqXvwHsQ"
@@ -526,6 +527,64 @@ func TestActiveGames(t *testing.T) {
 	}
 }
 
+func TestFeaturedGames(t *testing.T) {
+	rec, err := recorder.New("cassettes/spectator-v4/featured-games")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	fg, resp, err := cli.FeaturedGames()
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+		return
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := false
+	actual := len(fg.GameList) == 0
+	if expected != actual {
+		t.Errorf("\nExpected: %v\nActual: %v\n", expected, actual)
+	}
+}
+
+func TestSummonerByAccount(t *testing.T) {
+	rec, err := recorder.New("cassettes/summoner-v4/summoner-by-account")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	sd, resp, err := cli.SummonerByAccount(encryptedAccountID)
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := 73
+	actual := sd.SummonerLevel
+	if expected != actual {
+		t.Errorf("\nExpected: %d\nActual: %d\n", expected, actual)
+	}
+}
 func TestSummonerByName(t *testing.T) {
 	rec, err := recorder.New("cassettes/summoner-v4/summoner-by-name")
 	if err != nil {
@@ -541,7 +600,7 @@ func TestSummonerByName(t *testing.T) {
 		t.Error(err)
 	}
 
-	sd, resp, err := cli.SummonerByName("ilikeduck")
+	sd, resp, err := cli.SummonerByName(summonerName)
 	if resp.StatusCode != 200 {
 		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
 	}
@@ -570,7 +629,7 @@ func TestSummonerByPUUID(t *testing.T) {
 		t.Error(err)
 	}
 
-	sd, resp, err := cli.SummonerByPUUID("HldoCYMHNm27w37qJCfk5d20dB5uGma7oNuBVoZ01n3do7fMLW7ubao6SDeVAqTd9ieB5orqXvwHsQ")
+	sd, resp, err := cli.SummonerByPUUID(encryptedPUUID)
 	if resp.StatusCode != 200 {
 		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
 	}
@@ -578,6 +637,35 @@ func TestSummonerByPUUID(t *testing.T) {
 		t.Error(err)
 	}
 	expected := 70
+	actual := sd.SummonerLevel
+	if expected != actual {
+		t.Errorf("\nExpected: %d\nActual: %d\n", expected, actual)
+	}
+}
+
+func TestSummonerByID(t *testing.T) {
+	rec, err := recorder.New("cassettes/summoner-v4/summoner-by-id")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+	}
+
+	sd, resp, err := cli.SummonerByID(encryptedSummonerID)
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := 73
 	actual := sd.SummonerLevel
 	if expected != actual {
 		t.Errorf("\nExpected: %d\nActual: %d\n", expected, actual)

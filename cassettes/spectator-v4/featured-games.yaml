@@ -1,0 +1,60 @@
+---
+version: 1
+interactions:
+- request:
+    body: "null"
+    form: {}
+    headers:
+      User-Agent:
+      - jonwho/lol
+    url: https://na1.api.riotgames.com/lol/spectator/v4/featured-games
+    method: GET
+  response:
+    body: '{"gameList":[{"gameId":3206142972,"mapId":12,"gameMode":"ARAM","gameType":"MATCHED_GAME","gameQueueConfigId":450,"participants":[{"teamId":100,"spell1Id":4,"spell2Id":7,"championId":161,"skinIndex":2,"profileIconId":3791,"summonerName":"MakeLove2Midgets","bot":false},{"teamId":100,"spell1Id":4,"spell2Id":32,"championId":12,"skinIndex":0,"profileIconId":1110,"summonerName":"RobReefer","bot":false},{"teamId":100,"spell1Id":32,"spell2Id":4,"championId":6,"skinIndex":3,"profileIconId":4379,"summonerName":"Spëedy","bot":false},{"teamId":100,"spell1Id":3,"spell2Id":4,"championId":145,"skinIndex":14,"profileIconId":4393,"summonerName":"shadic65","bot":false},{"teamId":100,"spell1Id":4,"spell2Id":7,"championId":51,"skinIndex":3,"profileIconId":953,"summonerName":"The
+      Greatest Oat","bot":false},{"teamId":200,"spell1Id":3,"spell2Id":4,"championId":110,"skinIndex":0,"profileIconId":4154,"summonerName":"Cootsy","bot":false},{"teamId":200,"spell1Id":32,"spell2Id":4,"championId":24,"skinIndex":8,"profileIconId":4244,"summonerName":"IMMoJang","bot":false},{"teamId":200,"spell1Id":4,"spell2Id":32,"championId":55,"skinIndex":4,"profileIconId":3232,"summonerName":"Kahni","bot":false},{"teamId":200,"spell1Id":6,"spell2Id":4,"championId":13,"skinIndex":0,"profileIconId":3180,"summonerName":"adventcirno","bot":false},{"teamId":200,"spell1Id":4,"spell2Id":7,"championId":10,"skinIndex":5,"profileIconId":3854,"summonerName":"Fortilux","bot":false}],"observers":{"encryptionKey":"kldSBX9Gk+5YjGi0fXEOJ+P2zzCcffS5"},"platformId":"NA1","gameTypeConfigId":21,"bannedChampions":[],"gameStartTime":1573715669962,"gameLength":320},{"gameId":3206133468,"mapId":12,"gameMode":"ARAM","gameType":"MATCHED_GAME","gameQueueConfigId":450,"participants":[{"teamId":100,"spell1Id":13,"spell2Id":4,"championId":143,"skinIndex":0,"profileIconId":1456,"summonerName":"ImShengHi","bot":false},{"teamId":100,"spell1Id":32,"spell2Id":4,"championId":246,"skinIndex":0,"profileIconId":3790,"summonerName":"Jonas
+      hao","bot":false},{"teamId":100,"spell1Id":4,"spell2Id":32,"championId":53,"skinIndex":7,"profileIconId":13,"summonerName":"Negr0mancers","bot":false},{"teamId":100,"spell1Id":4,"spell2Id":32,"championId":25,"skinIndex":7,"profileIconId":4379,"summonerName":"Lord
+      Macaroni","bot":false},{"teamId":100,"spell1Id":4,"spell2Id":32,"championId":7,"skinIndex":0,"profileIconId":7,"summonerName":"Diarrhea
+      Yogurt","bot":false},{"teamId":200,"spell1Id":4,"spell2Id":32,"championId":27,"skinIndex":9,"profileIconId":3836,"summonerName":"I
+      ROFLCOPTER I","bot":false},{"teamId":200,"spell1Id":7,"spell2Id":4,"championId":268,"skinIndex":0,"profileIconId":4378,"summonerName":"Predicters","bot":false},{"teamId":200,"spell1Id":7,"spell2Id":4,"championId":110,"skinIndex":7,"profileIconId":1234,"summonerName":"Kushra","bot":false},{"teamId":200,"spell1Id":3,"spell2Id":4,"championId":37,"skinIndex":4,"profileIconId":591,"summonerName":"PKoreyoshi","bot":false},{"teamId":200,"spell1Id":32,"spell2Id":4,"championId":238,"skinIndex":3,"profileIconId":4379,"summonerName":"D1v9","bot":false}],"observers":{"encryptionKey":"AtIKo4dE9rr9Z01mg52RsPriZmo+Gxrs"},"platformId":"NA1","gameTypeConfigId":21,"bannedChampions":[],"gameStartTime":1573715882756,"gameLength":107},{"gameId":3206113527,"mapId":11,"gameMode":"CLASSIC","gameType":"MATCHED_GAME","gameQueueConfigId":420,"participants":[{"teamId":100,"spell1Id":14,"spell2Id":4,"championId":412,"skinIndex":5,"profileIconId":3860,"summonerName":"jbraggs","bot":false},{"teamId":100,"spell1Id":4,"spell2Id":7,"championId":145,"skinIndex":14,"profileIconId":4379,"summonerName":"FABIO
+      DIGDIN","bot":false},{"teamId":100,"spell1Id":4,"spell2Id":11,"championId":203,"skinIndex":1,"profileIconId":3590,"summonerName":"Forest","bot":false},{"teamId":100,"spell1Id":4,"spell2Id":12,"championId":31,"skinIndex":7,"profileIconId":4272,"summonerName":"LKY
+      Osama","bot":false},{"teamId":100,"spell1Id":4,"spell2Id":12,"championId":13,"skinIndex":5,"profileIconId":3156,"summonerName":"Alaan","bot":false},{"teamId":200,"spell1Id":4,"spell2Id":11,"championId":64,"skinIndex":4,"profileIconId":3591,"summonerName":"haru
+      dad","bot":false},{"teamId":200,"spell1Id":4,"spell2Id":12,"championId":10,"skinIndex":3,"profileIconId":547,"summonerName":"Kholin","bot":false},{"teamId":200,"spell1Id":4,"spell2Id":12,"championId":127,"skinIndex":4,"profileIconId":7,"summonerName":"Feí","bot":false},{"teamId":200,"spell1Id":14,"spell2Id":4,"championId":89,"skinIndex":4,"profileIconId":539,"summonerName":"ArgentumSky","bot":false},{"teamId":200,"spell1Id":7,"spell2Id":4,"championId":236,"skinIndex":8,"profileIconId":4035,"summonerName":"20190904","bot":false}],"observers":{"encryptionKey":"IQ7MD9JSo+pPaHvjm9APJcVwQJKPe/Sv"},"platformId":"NA1","gameTypeConfigId":18,"bannedChampions":[{"championId":91,"teamId":100,"pickTurn":1},{"championId":141,"teamId":100,"pickTurn":2},{"championId":121,"teamId":100,"pickTurn":3},{"championId":62,"teamId":100,"pickTurn":4},{"championId":246,"teamId":100,"pickTurn":5},{"championId":25,"teamId":200,"pickTurn":6},{"championId":-1,"teamId":200,"pickTurn":7},{"championId":246,"teamId":200,"pickTurn":8},{"championId":134,"teamId":200,"pickTurn":9},{"championId":119,"teamId":200,"pickTurn":10}],"gameStartTime":1573715879476,"gameLength":110},{"gameId":3206162730,"mapId":11,"gameMode":"CLASSIC","gameType":"MATCHED_GAME","gameQueueConfigId":420,"participants":[{"teamId":100,"spell1Id":14,"spell2Id":4,"championId":40,"skinIndex":2,"profileIconId":3150,"summonerName":"dying
+      a virgin","bot":false},{"teamId":100,"spell1Id":7,"spell2Id":4,"championId":119,"skinIndex":2,"profileIconId":3589,"summonerName":"TyChee","bot":false},{"teamId":100,"spell1Id":12,"spell2Id":4,"championId":4,"skinIndex":5,"profileIconId":562,"summonerName":"novabrisk","bot":false},{"teamId":100,"spell1Id":14,"spell2Id":4,"championId":133,"skinIndex":4,"profileIconId":938,"summonerName":"fady","bot":false},{"teamId":100,"spell1Id":11,"spell2Id":4,"championId":32,"skinIndex":0,"profileIconId":3377,"summonerName":"CharizardsCat","bot":false},{"teamId":200,"spell1Id":14,"spell2Id":4,"championId":111,"skinIndex":3,"profileIconId":3840,"summonerName":"Victini","bot":false},{"teamId":200,"spell1Id":7,"spell2Id":4,"championId":145,"skinIndex":17,"profileIconId":4363,"summonerName":"Lunarre","bot":false},{"teamId":200,"spell1Id":4,"spell2Id":12,"championId":245,"skinIndex":19,"profileIconId":1597,"summonerName":"iXiaoHuoLong","bot":false},{"teamId":200,"spell1Id":11,"spell2Id":4,"championId":28,"skinIndex":7,"profileIconId":3020,"summonerName":"Zixuan","bot":false},{"teamId":200,"spell1Id":12,"spell2Id":4,"championId":266,"skinIndex":8,"profileIconId":2076,"summonerName":"Litemeup","bot":false}],"observers":{"encryptionKey":"VVP4IkVoz4Jj9EcZJY/sFpj84d0jO77A"},"platformId":"NA1","gameTypeConfigId":18,"bannedChampions":[{"championId":421,"teamId":100,"pickTurn":1},{"championId":35,"teamId":100,"pickTurn":2},{"championId":235,"teamId":100,"pickTurn":3},{"championId":498,"teamId":100,"pickTurn":4},{"championId":53,"teamId":100,"pickTurn":5},{"championId":121,"teamId":200,"pickTurn":6},{"championId":8,"teamId":200,"pickTurn":7},{"championId":497,"teamId":200,"pickTurn":8},{"championId":53,"teamId":200,"pickTurn":9},{"championId":24,"teamId":200,"pickTurn":10}],"gameStartTime":1573715837089,"gameLength":153},{"gameId":3206162426,"mapId":11,"gameMode":"CLASSIC","gameType":"MATCHED_GAME","gameQueueConfigId":420,"participants":[{"teamId":100,"spell1Id":14,"spell2Id":4,"championId":412,"skinIndex":4,"profileIconId":4353,"summonerName":"Make
+      Me Alone","bot":false},{"teamId":100,"spell1Id":7,"spell2Id":4,"championId":145,"skinIndex":16,"profileIconId":22,"summonerName":"Youuuuuuuuuuuuu","bot":false},{"teamId":100,"spell1Id":4,"spell2Id":14,"championId":142,"skinIndex":12,"profileIconId":4291,"summonerName":"YOU
+      END DIAMOND","bot":false},{"teamId":100,"spell1Id":14,"spell2Id":11,"championId":35,"skinIndex":6,"profileIconId":1151,"summonerName":"ChaseShaco","bot":false},{"teamId":100,"spell1Id":12,"spell2Id":4,"championId":36,"skinIndex":0,"profileIconId":28,"summonerName":"iManuSlayer","bot":false},{"teamId":200,"spell1Id":4,"spell2Id":14,"championId":497,"skinIndex":0,"profileIconId":4372,"summonerName":"Haunt","bot":false},{"teamId":200,"spell1Id":4,"spell2Id":12,"championId":31,"skinIndex":7,"profileIconId":4270,"summonerName":"Chomdax","bot":false},{"teamId":200,"spell1Id":4,"spell2Id":1,"championId":246,"skinIndex":0,"profileIconId":938,"summonerName":"Humored","bot":false},{"teamId":200,"spell1Id":11,"spell2Id":4,"championId":80,"skinIndex":0,"profileIconId":4244,"summonerName":"JoeyOB","bot":false},{"teamId":200,"spell1Id":4,"spell2Id":7,"championId":18,"skinIndex":12,"profileIconId":4249,"summonerName":"badhihi","bot":false}],"observers":{"encryptionKey":"9xN/WbEjig/TArtY6WeO5S+cZTubiyxq"},"platformId":"NA1","gameTypeConfigId":18,"bannedChampions":[{"championId":30,"teamId":100,"pickTurn":1},{"championId":555,"teamId":100,"pickTurn":2},{"championId":121,"teamId":100,"pickTurn":3},{"championId":39,"teamId":100,"pickTurn":4},{"championId":25,"teamId":100,"pickTurn":5},{"championId":235,"teamId":200,"pickTurn":6},{"championId":268,"teamId":200,"pickTurn":7},{"championId":119,"teamId":200,"pickTurn":8},{"championId":23,"teamId":200,"pickTurn":9},{"championId":78,"teamId":200,"pickTurn":10}],"gameStartTime":1573715592939,"gameLength":397}],"clientRefreshInterval":300}'
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Origin:
+      - '*'
+      Age:
+      - "178"
+      Cache-Control:
+      - no-cache
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Thu, 14 Nov 2019 07:25:48 GMT
+      Expires:
+      - Wed, 31 Dec 1969 16:00:00 PST
+      Pragma:
+      - No-cache
+      Via:
+      - 1.1 varnish
+      X-App-Rate-Limit:
+      - 20:1,100:120
+      X-App-Rate-Limit-Count:
+      - 1:1,1:120
+      X-Method-Rate-Limit:
+      - 20000:10,1200000:600
+      X-Method-Rate-Limit-Count:
+      - 1:10,2:600
+      X-Riot-Edge-Trace-Id:
+      - 44087dbb-180e-48cb-b354-595485dc3143
+      X-Varnish:
+      - 203638285 203636908
+    status: 200 OK
+    code: 200
+    duration: ""

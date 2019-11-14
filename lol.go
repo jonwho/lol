@@ -89,6 +89,17 @@ type CurrentGameParticipant struct {
 	SummonerID               string                    `json:"summonerId"`
 }
 
+type Participant struct {
+	ProfileIconID int64  `json:"profileIconId"`
+	ChampionID    int64  `json:"championId"`
+	SummonerName  string `json:"summonerName"`
+	Bot           bool   `json:"bot"`
+	Spell2ID      int64  `json:"spell2Id"`
+	Spell1ID      int64  `json:"spell1Id"`
+	TeamID        int64  `json:"teamId"`
+	SummonerID    string `json:"summonerId"`
+}
+
 type GameCustomizationObject struct {
 	Category string `json:"category"`
 	Content  string `json:"content"`
@@ -102,6 +113,25 @@ type Perks struct {
 
 type EntriesParams struct {
 	Page string `url:"page,omitempty"`
+}
+
+type FeaturedGames struct {
+	ClientRefreshInterval int64              `json:"clientRefreshInterval"`
+	GameList              []FeaturedGameInfo `json:"gameList"`
+}
+
+type FeaturedGameInfo struct {
+	GameID            int64                    `json:"gameId"`
+	GameStartTime     int64                    `json:"gameStartTime"`
+	PlatformID        string                   `json:"platformId"`
+	GameMode          string                   `json:"gameMode"`
+	MapID             int64                    `json:"mapId"`
+	GameType          string                   `json:"gameType"`
+	BannedChampions   []BannedChampion         `json:"bannedChampions"`
+	Observers         Observer                 `json:"observers"`
+	Participants      []CurrentGameParticipant `json:"participants"`
+	GameLength        int64                    `json:"gameLength"`
+	GameQueueConfigID int64                    `json:"gameQueueConfigId"`
 }
 
 type Incident struct {
@@ -481,7 +511,7 @@ type Translation struct {
 // ClientOption is a func that operates on *Client
 type ClientOption func(*Client) error
 
-// New returns interface to League of Legends API
+// NewClient returns interface to League of Legends API
 func NewClient(token string, options ...ClientOption) (*Client, error) {
 	cli := &Client{}
 	WithToken(token)(cli)
@@ -719,6 +749,28 @@ func (c *Client) ActiveGames(encryptedSummonerID string) (*CurrentGameInfo, *htt
 	return info, resp, reqErr
 }
 
+// FeaturedGames GET /lol/spectator/v4/featured-games
+func (c *Client) FeaturedGames() (*FeaturedGames, *http.Response, error) {
+	info := new(FeaturedGames)
+	var reqErr error
+	resp, err := c.sling.Get("lol/spectator/v4/featured-games").Receive(info, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return info, resp, reqErr
+}
+
+// SummonerByAccount GET /lol/summoner/v4/summoners/by-account/{encryptedAccountID}
+func (c *Client) SummonerByAccount(encryptedAccountID string) (*SummonerDTO, *http.Response, error) {
+	sd := new(SummonerDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/summoner/v4/summoners/by-account/"+encryptedAccountID).Receive(sd, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return sd, resp, reqErr
+}
+
 // SummonerByName GET /lol/summoner/v4/summoners/by-name/{summonerName}
 func (c *Client) SummonerByName(summonerName string) (*SummonerDTO, *http.Response, error) {
 	sd := new(SummonerDTO)
@@ -735,6 +787,17 @@ func (c *Client) SummonerByPUUID(encryptedPUUID string) (*SummonerDTO, *http.Res
 	sd := new(SummonerDTO)
 	var reqErr error
 	resp, err := c.sling.Get("lol/summoner/v4/summoners/by-puuid/"+encryptedPUUID).Receive(sd, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return sd, resp, reqErr
+}
+
+// SummonerByID GET /lol/summoner/v4/summoners/{encryptedID}
+func (c *Client) SummonerByID(encryptedID string) (*SummonerDTO, *http.Response, error) {
+	sd := new(SummonerDTO)
+	var reqErr error
+	resp, err := c.sling.Get("lol/summoner/v4/summoners/"+encryptedID).Receive(sd, reqErr)
 	if err != nil {
 		return nil, resp, err
 	}

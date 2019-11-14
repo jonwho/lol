@@ -32,12 +32,12 @@ API Client for League of Legends
 - [ ] /lol/match/v4/matches/{matchId}/by-tournament-code/{tournamentCode}
 ## SPECTATOR-V4
 - [x] /lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}
-- [ ] /lol/spectator/v4/featured-games
+- [x] /lol/spectator/v4/featured-games
 ## SUMMONER-v4
-- [ ] /lol/summoner/v4/summoners/by-account/{encryptedAccountId}
+- [x] /lol/summoner/v4/summoners/by-account/{encryptedAccountId}
 - [x] /lol/summoner/v4/summoners/by-name/{summonerName}
 - [x] /lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}
-- [ ] /lol/summoner/v4/summoners/{encryptedSummonerId}
+- [x] /lol/summoner/v4/summoners/{encryptedSummonerId}
 ## TFT-LEAGUE-V1
 - [ ] /tft/league/v1/challenger
 - [ ] /tft/league/v1/entries/by-summoner/{encryptedSummonerId}
