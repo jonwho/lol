@@ -1,5 +1,5 @@
 # lol
-API Client for League of Legends
+API Client for League of Legends and Teamfight Tactics
 
 [![GoDoc](https://godoc.org/github.com/jonwho/lol?status.svg)](http://godoc.org/github.com/jonwho/lol)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jonwho/lol)](https://goreportcard.com/report/github.com/jonwho/lol)
@@ -39,7 +39,7 @@ API Client for League of Legends
 - [x] /lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}
 - [x] /lol/summoner/v4/summoners/{encryptedSummonerId}
 ## TFT-LEAGUE-V1
-- [ ] /tft/league/v1/challenger
+- [x] /tft/league/v1/challenger
 - [ ] /tft/league/v1/entries/by-summoner/{encryptedSummonerId}
 - [ ] /tft/league/v1/entries/{tier}/{division}
 - [ ] /tft/league/v1/grandmaster

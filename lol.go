@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	baseURL            = "api.riotgames.com/lol"
+	baseURL            = "api.riotgames.com"
 	defaultRegion      = "na1"
 	maxIdleConnections = 10
 	requestTimeout     = 5
@@ -802,4 +802,15 @@ func (c *Client) SummonerByID(encryptedID string) (*SummonerDTO, *http.Response,
 		return nil, resp, err
 	}
 	return sd, resp, reqErr
+}
+
+// Challenger /tft/league/v1/challenger
+func (c *Client) Challenger() (*LeagueListDTO, *http.Response, error) {
+	dto := new(LeagueListDTO)
+	var reqErr error
+	resp, err := c.sling.Get("tft/league/v1/challenger").Receive(dto, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return dto, resp, reqErr
 }

@@ -23,6 +23,42 @@ var (
 	matchID             = "3198831326"
 )
 
+func matchWithoutToken(req *http.Request, i cassette.Request) bool {
+	u := req.URL
+	q := u.Query()
+	q.Del("api_key")
+	u.RawQuery = q.Encode()
+	req.URL = u
+	return u.String() == i.URL
+}
+
+func removeToken(i *cassette.Interaction) error {
+	// remove from URL
+	u, err := url.Parse(i.Request.URL)
+	if err != nil {
+		return err
+	}
+	q := u.Query()
+	q.Del("api_key")
+	u.RawQuery = q.Encode()
+	i.Request.URL = u.String()
+
+	// remove from JSON request body
+	originalBody := []byte(i.Request.Body)
+	var unmarshalBody map[string]interface{}
+	if err = json.Unmarshal(originalBody, &unmarshalBody); err != nil {
+		// try to unmarshal response body to JSON
+		// NOP if error
+	}
+	delete(unmarshalBody, "api_key")
+	bodyWithoutToken, err := json.Marshal(unmarshalBody)
+	i.Request.Body = string(bodyWithoutToken)
+
+	// remove from header
+	delete(i.Request.Headers, "X-Riot-Token")
+	return nil
+}
+
 func TestNewClient(t *testing.T) {
 	cli, err := NewClient("test_key")
 	if err != nil {
@@ -672,38 +708,31 @@ func TestSummonerByID(t *testing.T) {
 	}
 }
 
-func matchWithoutToken(req *http.Request, i cassette.Request) bool {
-	u := req.URL
-	q := u.Query()
-	q.Del("api_key")
-	u.RawQuery = q.Encode()
-	req.URL = u
-	return u.String() == i.URL
-}
-
-func removeToken(i *cassette.Interaction) error {
-	// remove from URL
-	u, err := url.Parse(i.Request.URL)
+func TestChallenger(t *testing.T) {
+	rec, err := recorder.New("cassettes/tft/league-v1/challenger")
 	if err != nil {
-		return err
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
 	}
-	q := u.Query()
-	q.Del("api_key")
-	u.RawQuery = q.Encode()
-	i.Request.URL = u.String()
-
-	// remove from JSON request body
-	originalBody := []byte(i.Request.Body)
-	var unmarshalBody map[string]interface{}
-	if err = json.Unmarshal(originalBody, &unmarshalBody); err != nil {
-		// try to unmarshal response body to JSON
-		// NOP if error
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
 	}
-	delete(unmarshalBody, "api_key")
-	bodyWithoutToken, err := json.Marshal(unmarshalBody)
-	i.Request.Body = string(bodyWithoutToken)
 
-	// remove from header
-	delete(i.Request.Headers, "X-Riot-Token")
-	return nil
+	dto, resp, err := cli.Challenger()
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+	}
+	if err != nil {
+		t.Error(err)
+	}
+	expected := "Trundle's Stalkers"
+	actual := dto.Name
+	if expected != actual {
+		t.Errorf("\nExpected: %s\nActual: %s\n", expected, actual)
+	}
 }
