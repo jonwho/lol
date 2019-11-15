@@ -32,8 +32,8 @@ type Client struct {
 	Token, Region string
 	sling         *sling.Sling
 	httpClient    *http.Client
-	*LOLService
-	*TFTService
+	*LOL
+	*TFT
 }
 
 // NewClient returns interface to League of Legends API
@@ -51,8 +51,8 @@ func NewClient(token string, options ...ClientOption) (*Client, error) {
 	}
 
 	cli.sling.Set("X-Riot-Token", cli.Token)
-	cli.LOLService = NewLOLService(cli.sling)
-	cli.TFTService = NewTFTService(cli.sling)
+	cli.LOL = NewLOL(cli.sling)
+	cli.TFT = NewTFT(cli.sling)
 
 	return cli, nil
 }

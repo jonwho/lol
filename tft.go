@@ -6,18 +6,18 @@ import (
 	"github.com/dghubble/sling"
 )
 
-// TFTService provides methods to interface with tft resource
-type TFTService struct {
+// TFT provides methods to interface with tft resource
+type TFT struct {
 	sling *sling.Sling
 }
 
-// NewTFTService returns a new LOLService
-func NewTFTService(sling *sling.Sling) *TFTService {
-	return &TFTService{sling: sling.New().Path("tft/")}
+// NewTFT returns a new TFT
+func NewTFT(sling *sling.Sling) *TFT {
+	return &TFT{sling: sling.New().Path("tft/")}
 }
 
 // Challenger /tft/league/v1/challenger
-func (t *TFTService) Challenger() (*LeagueListDTO, *http.Response, error) {
+func (t *TFT) Challenger() (*LeagueListDTO, *http.Response, error) {
 	dto := new(LeagueListDTO)
 	var reqErr error
 	resp, err := t.sling.Get("league/v1/challenger").Receive(dto, reqErr)

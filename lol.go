@@ -9,8 +9,8 @@ import (
 	"github.com/dghubble/sling"
 )
 
-// LOLService provides methods to interface with lol resource
-type LOLService struct {
+// LOL provides methods to interface with lol resource
+type LOL struct {
 	sling *sling.Sling
 }
 
@@ -488,13 +488,13 @@ type Translation struct {
 	UpdatedAt string `json:"updated_at"`
 }
 
-// NewLOLService returns a new LOLService
-func NewLOLService(sling *sling.Sling) *LOLService {
-	return &LOLService{sling: sling.New().Path("lol/")}
+// NewLOL returns a new LOL
+func NewLOL(sling *sling.Sling) *LOL {
+	return &LOL{sling: sling.New().Path("lol/")}
 }
 
 // AllChampionMastery GET /lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerID}
-func (l *LOLService) AllChampionMastery(encryptedSummonerID string) (*[]ChampionMasteryDTO, *http.Response, error) {
+func (l *LOL) AllChampionMastery(encryptedSummonerID string) (*[]ChampionMasteryDTO, *http.Response, error) {
 	dtos := new([]ChampionMasteryDTO)
 	var reqErr error
 	resp, err := l.sling.Get("champion-mastery/v4/champion-masteries/by-summoner/"+encryptedSummonerID).Receive(dtos, reqErr)
@@ -507,7 +507,7 @@ func (l *LOLService) AllChampionMastery(encryptedSummonerID string) (*[]Champion
 }
 
 // ChampionMastery GET /lol/champion-mastery/v4/champion-masteries/by-summoner/{encryptedSummonerID}/by-champion/{championID}
-func (l *LOLService) ChampionMastery(encryptedSummonerID, championID string) (*ChampionMasteryDTO, *http.Response, error) {
+func (l *LOL) ChampionMastery(encryptedSummonerID, championID string) (*ChampionMasteryDTO, *http.Response, error) {
 	dto := new(ChampionMasteryDTO)
 	var reqErr error
 	resp, err := l.sling.Get("champion-mastery/v4/champion-masteries/by-summoner/"+encryptedSummonerID+"/by-champion/"+championID).Receive(dto, reqErr)
@@ -520,7 +520,7 @@ func (l *LOLService) ChampionMastery(encryptedSummonerID, championID string) (*C
 }
 
 // MasteryScore GET /lol/champion-mastery/v4/scores/by-summoner/{encryptedSummonerID}
-func (l *LOLService) MasteryScore(encryptedSummonerID string) (int, *http.Response, error) {
+func (l *LOL) MasteryScore(encryptedSummonerID string) (int, *http.Response, error) {
 	req, err := l.sling.Get("champion-mastery/v4/scores/by-summoner/" + encryptedSummonerID).Request()
 	if err != nil {
 		return 0, nil, err
@@ -541,7 +541,7 @@ func (l *LOLService) MasteryScore(encryptedSummonerID string) (int, *http.Respon
 }
 
 // ChampionRotations GET /lol/platform/v3/champion-rotations
-func (l *LOLService) ChampionRotations() (*ChampionInfo, *http.Response, error) {
+func (l *LOL) ChampionRotations() (*ChampionInfo, *http.Response, error) {
 	ci := new(ChampionInfo)
 	var reqErr error
 	resp, err := l.sling.Get("platform/v3/champion-rotations").Receive(ci, reqErr)
@@ -554,7 +554,7 @@ func (l *LOLService) ChampionRotations() (*ChampionInfo, *http.Response, error) 
 }
 
 // LeagueExpEntries GET /lol/league-exp/v4/entries/{queue}/{tier}/{division}
-func (l *LOLService) LeagueExpEntries(queue, tier, division string, params *LeagueExpEntriesParams) ([]LeagueEntryDTO, *http.Response, error) {
+func (l *LOL) LeagueExpEntries(queue, tier, division string, params *LeagueExpEntriesParams) ([]LeagueEntryDTO, *http.Response, error) {
 	dtos := new([]LeagueEntryDTO)
 	var reqErr error
 	endpoint := fmt.Sprintf("league-exp/v4/entries/%s/%s/%s", queue, tier, division)
@@ -566,7 +566,7 @@ func (l *LOLService) LeagueExpEntries(queue, tier, division string, params *Leag
 }
 
 // ChallengerLeagues GET /lol/league/v4/challengerleagues/by-queue/{queue}
-func (l *LOLService) ChallengerLeagues(queue string) (*LeagueListDTO, *http.Response, error) {
+func (l *LOL) ChallengerLeagues(queue string) (*LeagueListDTO, *http.Response, error) {
 	dto := new(LeagueListDTO)
 	var reqErr error
 	resp, err := l.sling.Get("league/v4/challengerleagues/by-queue/"+queue).Receive(dto, reqErr)
@@ -577,7 +577,7 @@ func (l *LOLService) ChallengerLeagues(queue string) (*LeagueListDTO, *http.Resp
 }
 
 // EntriesBySummoner GET /lol/league/v4/entries/by-summoner/{encryptedSummonerId}
-func (l *LOLService) EntriesBySummoner(encryptedSummonerID string) ([]LeagueEntryDTO, *http.Response, error) {
+func (l *LOL) EntriesBySummoner(encryptedSummonerID string) ([]LeagueEntryDTO, *http.Response, error) {
 	dtos := new([]LeagueEntryDTO)
 	var reqErr error
 	resp, err := l.sling.Get("league/v4/entries/by-summoner/"+encryptedSummonerID).Receive(dtos, reqErr)
@@ -588,7 +588,7 @@ func (l *LOLService) EntriesBySummoner(encryptedSummonerID string) ([]LeagueEntr
 }
 
 // Entries GET /lol/league/v4/entries/{queue}/{tier}/{division}
-func (l *LOLService) Entries(queue, tier, division string, params *EntriesParams) ([]LeagueEntryDTO, *http.Response, error) {
+func (l *LOL) Entries(queue, tier, division string, params *EntriesParams) ([]LeagueEntryDTO, *http.Response, error) {
 	dtos := new([]LeagueEntryDTO)
 	var reqErr error
 	endpoint := fmt.Sprintf("league/v4/entries/%s/%s/%s", queue, tier, division)
@@ -600,7 +600,7 @@ func (l *LOLService) Entries(queue, tier, division string, params *EntriesParams
 }
 
 // GrandmasterLeagues GET /lol/league/v4/grandmasterleagues/by-queue/{queue}
-func (l *LOLService) GrandmasterLeagues(queue string) (*LeagueListDTO, *http.Response, error) {
+func (l *LOL) GrandmasterLeagues(queue string) (*LeagueListDTO, *http.Response, error) {
 	dto := new(LeagueListDTO)
 	var reqErr error
 	resp, err := l.sling.Get("league/v4/grandmasterleagues/by-queue/"+queue).Receive(dto, reqErr)
@@ -611,7 +611,7 @@ func (l *LOLService) GrandmasterLeagues(queue string) (*LeagueListDTO, *http.Res
 }
 
 // Leagues GET /lol/league/v4/leagues/{leagueId}
-func (l *LOLService) Leagues(leagueID string) (*LeagueListDTO, *http.Response, error) {
+func (l *LOL) Leagues(leagueID string) (*LeagueListDTO, *http.Response, error) {
 	dto := new(LeagueListDTO)
 	var reqErr error
 	resp, err := l.sling.Get("league/v4/leagues/"+leagueID).Receive(dto, reqErr)
@@ -622,7 +622,7 @@ func (l *LOLService) Leagues(leagueID string) (*LeagueListDTO, *http.Response, e
 }
 
 // MasterLeagues GET /lol/league/v4/masterleagues/by-queue/{queue}
-func (l *LOLService) MasterLeagues(queue string) (*LeagueListDTO, *http.Response, error) {
+func (l *LOL) MasterLeagues(queue string) (*LeagueListDTO, *http.Response, error) {
 	dto := new(LeagueListDTO)
 	var reqErr error
 	resp, err := l.sling.Get("league/v4/masterleagues/by-queue/"+queue).Receive(dto, reqErr)
@@ -633,7 +633,7 @@ func (l *LOLService) MasterLeagues(queue string) (*LeagueListDTO, *http.Response
 }
 
 // Status GET /lol/status/v3/shard-data
-func (l *LOLService) Status() (*ShardStatus, *http.Response, error) {
+func (l *LOL) Status() (*ShardStatus, *http.Response, error) {
 	shardStatus := new(ShardStatus)
 	var reqErr error
 	resp, err := l.sling.Get("status/v3/shard-data").Receive(shardStatus, reqErr)
@@ -644,7 +644,7 @@ func (l *LOLService) Status() (*ShardStatus, *http.Response, error) {
 }
 
 // Matches GET /lol/match/v4/matches/{matchID}
-func (l *LOLService) Matches(matchID string) (*MatchDTO, *http.Response, error) {
+func (l *LOL) Matches(matchID string) (*MatchDTO, *http.Response, error) {
 	dto := new(MatchDTO)
 	var reqErr error
 	resp, err := l.sling.Get("match/v4/matches/"+matchID).Receive(dto, reqErr)
@@ -655,7 +655,7 @@ func (l *LOLService) Matches(matchID string) (*MatchDTO, *http.Response, error) 
 }
 
 // Matchlists GET /lol/match/v4/matchlists/by-account/{encryptedAccountID}
-func (l *LOLService) Matchlists(encryptedAccountID string, params *MatchlistsParams) (*MatchlistDTO, *http.Response, error) {
+func (l *LOL) Matchlists(encryptedAccountID string, params *MatchlistsParams) (*MatchlistDTO, *http.Response, error) {
 	dto := new(MatchlistDTO)
 	var reqErr error
 	resp, err := l.sling.Get("match/v4/matchlists/by-account/"+encryptedAccountID).QueryStruct(params).Receive(dto, reqErr)
@@ -666,7 +666,7 @@ func (l *LOLService) Matchlists(encryptedAccountID string, params *MatchlistsPar
 }
 
 // Timelines GET /lol/match/v4/timelines/by-match/{matchID}
-func (l *LOLService) Timelines(matchID string) (*MatchTimelineDTO, *http.Response, error) {
+func (l *LOL) Timelines(matchID string) (*MatchTimelineDTO, *http.Response, error) {
 	dto := new(MatchTimelineDTO)
 	var reqErr error
 	resp, err := l.sling.Get("match/v4/timelines/by-match/"+matchID).Receive(dto, reqErr)
@@ -677,7 +677,7 @@ func (l *LOLService) Timelines(matchID string) (*MatchTimelineDTO, *http.Respons
 }
 
 // ActiveGames GET /lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}
-func (l *LOLService) ActiveGames(encryptedSummonerID string) (*CurrentGameInfo, *http.Response, error) {
+func (l *LOL) ActiveGames(encryptedSummonerID string) (*CurrentGameInfo, *http.Response, error) {
 	info := new(CurrentGameInfo)
 	var reqErr error
 	resp, err := l.sling.Get("spectator/v4/active-games/by-summoner/"+encryptedSummonerID).Receive(info, reqErr)
@@ -688,7 +688,7 @@ func (l *LOLService) ActiveGames(encryptedSummonerID string) (*CurrentGameInfo, 
 }
 
 // FeaturedGames GET /lol/spectator/v4/featured-games
-func (l *LOLService) FeaturedGames() (*FeaturedGames, *http.Response, error) {
+func (l *LOL) FeaturedGames() (*FeaturedGames, *http.Response, error) {
 	info := new(FeaturedGames)
 	var reqErr error
 	resp, err := l.sling.Get("spectator/v4/featured-games").Receive(info, reqErr)
@@ -699,7 +699,7 @@ func (l *LOLService) FeaturedGames() (*FeaturedGames, *http.Response, error) {
 }
 
 // SummonerByAccount GET /lol/summoner/v4/summoners/by-account/{encryptedAccountID}
-func (l *LOLService) SummonerByAccount(encryptedAccountID string) (*SummonerDTO, *http.Response, error) {
+func (l *LOL) SummonerByAccount(encryptedAccountID string) (*SummonerDTO, *http.Response, error) {
 	sd := new(SummonerDTO)
 	var reqErr error
 	resp, err := l.sling.Get("summoner/v4/summoners/by-account/"+encryptedAccountID).Receive(sd, reqErr)
@@ -710,7 +710,7 @@ func (l *LOLService) SummonerByAccount(encryptedAccountID string) (*SummonerDTO,
 }
 
 // SummonerByName GET /lol/summoner/v4/summoners/by-name/{summonerName}
-func (l *LOLService) SummonerByName(summonerName string) (*SummonerDTO, *http.Response, error) {
+func (l *LOL) SummonerByName(summonerName string) (*SummonerDTO, *http.Response, error) {
 	sd := new(SummonerDTO)
 	var reqErr error
 	resp, err := l.sling.Get("summoner/v4/summoners/by-name/"+summonerName).Receive(sd, reqErr)
@@ -721,7 +721,7 @@ func (l *LOLService) SummonerByName(summonerName string) (*SummonerDTO, *http.Re
 }
 
 // SummonerByPUUID GET /lol/summoner/v4/summoners/by-puuid/{encryptedPUUID}
-func (l *LOLService) SummonerByPUUID(encryptedPUUID string) (*SummonerDTO, *http.Response, error) {
+func (l *LOL) SummonerByPUUID(encryptedPUUID string) (*SummonerDTO, *http.Response, error) {
 	sd := new(SummonerDTO)
 	var reqErr error
 	resp, err := l.sling.Get("summoner/v4/summoners/by-puuid/"+encryptedPUUID).Receive(sd, reqErr)
@@ -732,7 +732,7 @@ func (l *LOLService) SummonerByPUUID(encryptedPUUID string) (*SummonerDTO, *http
 }
 
 // SummonerByID GET /lol/summoner/v4/summoners/{encryptedID}
-func (l *LOLService) SummonerByID(encryptedID string) (*SummonerDTO, *http.Response, error) {
+func (l *LOL) SummonerByID(encryptedID string) (*SummonerDTO, *http.Response, error) {
 	sd := new(SummonerDTO)
 	var reqErr error
 	resp, err := l.sling.Get("summoner/v4/summoners/"+encryptedID).Receive(sd, reqErr)
