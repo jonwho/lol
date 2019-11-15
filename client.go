@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	baseURL            = "api.riotgames.com"
+	baseURL            = "api.riotgames.com/"
 	defaultRegion      = "na1"
 	maxIdleConnections = 10
 	requestTimeout     = 5
@@ -32,6 +32,8 @@ type Client struct {
 	Token, Region string
 	sling         *sling.Sling
 	httpClient    *http.Client
+	*LOLService
+	*TFTService
 }
 
 // NewClient returns interface to League of Legends API
@@ -49,6 +51,8 @@ func NewClient(token string, options ...ClientOption) (*Client, error) {
 	}
 
 	cli.sling.Set("X-Riot-Token", cli.Token)
+	cli.LOLService = NewLOLService(cli.sling)
+	cli.TFTService = NewTFTService(cli.sling)
 
 	return cli, nil
 }
