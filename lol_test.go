@@ -274,7 +274,7 @@ func TestEntriesBySummoner(t *testing.T) {
 		return
 	}
 
-	dtos, resp, err := cli.EntriesBySummoner(encryptedSummonerID)
+	dtos, resp, err := cli.LOL.EntriesBySummoner(encryptedSummonerID)
 	if resp.StatusCode != 200 {
 		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
 		return
@@ -307,7 +307,7 @@ func TestEntries(t *testing.T) {
 		return
 	}
 
-	dtos, resp, err := cli.Entries("RANKED_SOLO_5x5", "DIAMOND", "I", &EntriesParams{Page: "1"})
+	dtos, resp, err := cli.LOL.Entries("RANKED_SOLO_5x5", "DIAMOND", "I", &EntriesParams{Page: "1"})
 	if resp.StatusCode != 200 {
 		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
 		return
@@ -373,7 +373,7 @@ func TestLeagues(t *testing.T) {
 		return
 	}
 
-	dto, resp, err := cli.Leagues(grandmasterLeagueID)
+	dto, resp, err := cli.LOL.Leagues(grandmasterLeagueID)
 	if resp.StatusCode != 200 {
 		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
 		return

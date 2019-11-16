@@ -1,0 +1,35 @@
+---
+version: 1
+interactions:
+- request:
+    body: "null"
+    form: {}
+    headers:
+      User-Agent:
+      - jonwho/lol
+    url: https://na1.api.riotgames.com/tft/league/v1/entries/by-summoner/mZB3KRfmKzq0uo1LA8yVdClbaDAfPev_GNBaocjYcHpt6Ik
+    method: GET
+  response:
+    body: '[{"leagueId":"092f4470-a9dd-11e9-9019-c81f66dbb56c","queueType":"RANKED_TFT","tier":"PLATINUM","rank":"I","summonerId":"mZB3KRfmKzq0uo1LA8yVdClbaDAfPev_GNBaocjYcHpt6Ik","summonerName":"bNage","leaguePoints":45,"wins":22,"losses":110,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false}]'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Sat, 16 Nov 2019  07:53:23 GMT
+      Vary:
+      - Accept-Encoding
+      X-App-Rate-Limit:
+      - 20:1,100:120
+      X-App-Rate-Limit-Count:
+      - 1:1,1:120
+      X-Method-Rate-Limit:
+      - 20000:10,1200000:600
+      X-Method-Rate-Limit-Count:
+      - 1:10,1:600
+      X-Riot-Edge-Trace-Id:
+      - 3867a2d2-a335-4fde-8d77-6f8b1f8c141d
+    status: 200 OK
+    code: 200
+    duration: ""

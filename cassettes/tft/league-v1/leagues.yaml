@@ -1,0 +1,43 @@
+---
+version: 1
+interactions:
+- request:
+    body: "null"
+    form: {}
+    headers:
+      User-Agent:
+      - jonwho/lol
+    url: https://na1.api.riotgames.com/tft/league/v1/leagues/302f7830-005c-11ea-9566-da80b681e2c4
+    method: GET
+  response:
+    body: '{"tier":"DIAMOND","leagueId":"302f7830-005c-11ea-9566-da80b681e2c4","queue":"RANKED_TFT","name":"Ashe''s
+      Battlemasters","entries":[{"summonerId":"EBxAHhNPkWrcz6a2XFC2_lhoz9aim7KcCPTeUKd9cjnOe3U3","summonerName":"kamimosquitozero","leaguePoints":75,"rank":"I","wins":74,"losses":301,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"vi4eTC9Fh1CJ9zoEqoGin7UUQauVxm4XPooKBMFUtmDWQBw","summonerName":"SolrFlux","leaguePoints":31,"rank":"IV","wins":20,"losses":80,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"hxgyd24F70_d0GAuiVueaWvfgpA-1ds2lS2rmeP2nQNb1Xw","summonerName":"Serious
+      Senpai","leaguePoints":50,"rank":"I","wins":46,"losses":271,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"kpikN_UHVZikfUJfFWPX8uzdU0N9LSsHRTA_GXTHJeXrlbg","summonerName":"SpyderWeb","leaguePoints":10,"rank":"IV","wins":30,"losses":172,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"WkOHUH2HUVyrPQufyWaTS15bAiGJhERNxrV1hVk04GPfXyln","summonerName":"askart","leaguePoints":3,"rank":"IV","wins":79,"losses":458,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"sWOlFP8xPhSPROLQiaNk8xFgD912krPVdHNHt3wOTie62Ig","summonerName":"Vic
+      CCUT","leaguePoints":50,"rank":"I","wins":51,"losses":154,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"zOt8mlnPGDUj3eRiN70FTaWAjfaQ7J3UwZRLDCv13W_XiYY","summonerName":"MeleeHeroOnly","leaguePoints":50,"rank":"I","wins":44,"losses":199,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"ROHFUnudSOnfl45a_5-ct-ocSUGYP713IdHd3N9q4EJnSrPB","summonerName":"Bernkaste1","leaguePoints":75,"rank":"I","wins":15,"losses":88,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"K43S3ze9CLEy10Dte94zG5Ii9yM-LzvVJjoF7910r5bN4JY","summonerName":"CHARLES
+      THE MULE","leaguePoints":13,"rank":"IV","wins":15,"losses":44,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"yZH6x7i1DkMGmZf64BkO4p8uUIyFTonm8hNeia2GwN12Dhed","summonerName":"MathGavin","leaguePoints":7,"rank":"IV","wins":129,"losses":960,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"T2RKGUa5ewhzkpC1s3NYifAnDNNMZTsnI-0WrpLBFMo5CgVJ","summonerName":"SmileB4Death","leaguePoints":2,"rank":"IV","wins":70,"losses":395,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"wfpJb8CmT0f-KExS3z5vkcc99QNMrXEMwKBKAXAl4wDYrg1I","summonerName":"Matthias2019","leaguePoints":1,"rank":"IV","wins":12,"losses":135,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"3SWemGTLgG4uqbH07I-7EbSzBTttQfMbgjdBnqRkp5XINOM","summonerName":"Hauntid","leaguePoints":3,"rank":"IV","wins":59,"losses":340,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"iskEOCdpJU8_tKVdO09hDySUMaovYGgrpf6t5CKkwlwtSW8q","summonerName":"Crvor
+      speaks ENG","leaguePoints":50,"rank":"I","wins":34,"losses":126,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"4SY_YQfKn1pUFUtsq6uHr_VrHqpoJtJQwR0yho6qg_u1KgS9","summonerName":"MacroMo","leaguePoints":50,"rank":"I","wins":52,"losses":200,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"m4liEDB_AKLUoh80lbfKxlDqujwCfYKtBhRD4--EqmdJyMk","summonerName":"Chevallard","leaguePoints":18,"rank":"IV","wins":23,"losses":88,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"fUMKhAK8y3vP3eBimMpmxW9reNBCI1yLr7x4arepcT0_pGpR","summonerName":"SanaMomoMina","leaguePoints":8,"rank":"IV","wins":64,"losses":294,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"lhW6wc4iCPV3k5vLOL9FvxjmiiLb7Cq725Y7hGzQrQux_oc","summonerName":"BoBa
+      Zyros","leaguePoints":7,"rank":"IV","wins":87,"losses":383,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"3-WP-8Hi7ofLDZ_DHrHm5eug_UkDyxMR46vr9g_eR9jta_1e","summonerName":"Tactician
+      Kelias","leaguePoints":75,"rank":"I","wins":23,"losses":84,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"1BLlveOvsoZLMyszMxG1xj_4StS_jb7vD40o4wNoEZtKtmo","summonerName":"mirkz","leaguePoints":13,"rank":"IV","wins":22,"losses":63,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"Ljcb25D0IP66rnpqmOC3X7tidETob9gophRYXOMsUhoWMAM","summonerName":"GavinWhoo","leaguePoints":25,"rank":"IV","wins":20,"losses":94,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"8kvYDNb33_1zG3cxIQvro6_oTIt4h75irqOfCq6KD7MGsGov","summonerName":"dadidddads","leaguePoints":24,"rank":"IV","wins":28,"losses":83,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"T5gzXepwmkoPTv6BfFLeznaQ_0n0JSI2_eaibWBaZuyKsnmX","summonerName":"Bigolefloppy","leaguePoints":1,"rank":"IV","wins":24,"losses":111,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"ab8uE3BBQFKzsom5dyUG2tdxCg2K3e9nLzr2-dB3SHPwOS0","summonerName":"Megalamoose","leaguePoints":3,"rank":"IV","wins":42,"losses":336,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"5ypWdaB9z2x2prI-t-uasv4UoH8zvz-wLCIEdF3jPhiMj27H","summonerName":"FWsucks","leaguePoints":7,"rank":"IV","wins":39,"losses":248,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"lkOnCJTLQ-gSL3aFV_cSgz5uUmNypO1JBgElcsv2ibmfMeAL","summonerName":"1KingOfWind","leaguePoints":10,"rank":"IV","wins":88,"losses":536,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"NGCrEf0nXdM56a4cOAx7SeUTFuUulU4dBdvtuN7HXVw8qt4","summonerName":"max
+      binh ","leaguePoints":1,"rank":"IV","wins":53,"losses":338,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"SQmsdSjb1ev49Bbz80tW000EwNBz87Rvem_e2YLPpyTiV4GT","summonerName":"TocookieNA","leaguePoints":50,"rank":"I","wins":56,"losses":261,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"oFl_yLhC5tEB2c9Ih1Q3ZBRNYBw-OoYI8GU7IUz6GZmblaU","summonerName":"TiffanyZz","leaguePoints":22,"rank":"IV","wins":35,"losses":147,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false},{"summonerId":"raqMssMOV3d7CFDLfePfXXNYfcGcqLg7ln_aIh6tUmV8SCo","summonerName":"XIANGBABAA","leaguePoints":50,"rank":"I","wins":73,"losses":365,"veteran":false,"inactive":false,"freshBlood":false,"hotStreak":false}]}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Sat, 16 Nov 2019  09:05:49 GMT
+      Vary:
+      - Accept-Encoding
+      X-App-Rate-Limit:
+      - 20:1,100:120
+      X-App-Rate-Limit-Count:
+      - 1:1,2:120
+      X-Method-Rate-Limit:
+      - 20000:10,1200000:600
+      X-Method-Rate-Limit-Count:
+      - 1:10,3:600
+      X-Riot-Edge-Trace-Id:
+      - 41c8a23d-96f9-4c0e-a4c9-5c18a71834a8
+    status: 200 OK
+    code: 200
+    duration: ""

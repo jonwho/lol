@@ -40,11 +40,11 @@ API Client for League of Legends and Teamfight Tactics
 - [x] /lol/summoner/v4/summoners/{encryptedSummonerId}
 ## TFT-LEAGUE-V1
 - [x] /tft/league/v1/challenger
-- [ ] /tft/league/v1/entries/by-summoner/{encryptedSummonerId}
-- [ ] /tft/league/v1/entries/{tier}/{division}
-- [ ] /tft/league/v1/grandmaster
-- [ ] /tft/league/v1/leagues/{leagueId}
-- [ ] /tft/league/v1/master
+- [x] /tft/league/v1/entries/by-summoner/{encryptedSummonerId}
+- [x] /tft/league/v1/entries/{tier}/{division}
+- [x] /tft/league/v1/grandmaster
+- [x] /tft/league/v1/leagues/{leagueId}
+- [x] /tft/league/v1/master
 ## TFT-MATCH-V1
 - [ ] /tft/match/v1/matches/by-puuid/{encryptedPUUID}/ids
 - [ ] /tft/match/v1/matches/{matchId}

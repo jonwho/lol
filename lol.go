@@ -592,7 +592,7 @@ func (l *LOL) Entries(queue, tier, division string, params *EntriesParams) ([]Le
 	dtos := new([]LeagueEntryDTO)
 	var reqErr error
 	endpoint := fmt.Sprintf("league/v4/entries/%s/%s/%s", queue, tier, division)
-	resp, err := l.sling.Get(endpoint).Receive(dtos, reqErr)
+	resp, err := l.sling.Get(endpoint).QueryStruct(params).Receive(dtos, reqErr)
 	if err != nil {
 		return nil, resp, err
 	}
