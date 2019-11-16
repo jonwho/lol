@@ -83,3 +83,16 @@ func (t *TFT) Master() (*LeagueListDTO, *http.Response, error) {
 	}
 	return dto, resp, reqErr
 }
+
+// MatchesByPUUID GET /tft/match/v1/matches/by-puuid/{encryptedPUUID}/ids
+func (t *TFT) MatchesByPUUID(encryptedPUUID string) ([]string, *http.Response, error) {
+	data := new([]string)
+	var reqErr error
+	// TODO: need to lookup the region and map it to "americas", "asia", or "EUROPE"
+	// TODO: add region/token to the service struct
+	resp, err := t.sling.Get("https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/"+encryptedPUUID+"/ids").Receive(data, reqErr)
+	if err != nil {
+		return nil, resp, err
+	}
+	return *data, resp, reqErr
+}

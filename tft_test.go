@@ -215,3 +215,36 @@ func TestMaster(t *testing.T) {
 		return
 	}
 }
+
+func TestMatchesByPUUID(t *testing.T) {
+	rec, err := recorder.New("cassettes/tft/match-v1/matches-by-puuid")
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		rec.SetMatcher(matchWithoutToken)
+		httpClient = &http.Client{Transport: rec}
+	}
+	rec.AddFilter(removeToken)
+	defer rec.Stop()
+	cli, err := NewClient(testToken, WithHTTPClient(httpClient))
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	data, resp, err := cli.MatchesByPUUID(tftEncryptedPUUID)
+	if resp.StatusCode != 200 {
+		t.Errorf("\nExpected: 200 status code\nActual: %d status code", resp.StatusCode)
+		return
+	}
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	expected := false
+	actual := len(data) == 0
+	if expected != actual {
+		t.Errorf("\nExpected: %v\nActual: %v\n", expected, actual)
+		return
+	}
+}
